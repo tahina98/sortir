@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-body {
-    background-color: lightgray;
+.tw {
+  @apply chat chat-start chat-end chat-bubble;
 }
+
+/*# sourceMappingURL=app.css.map */
