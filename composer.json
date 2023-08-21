@@ -7,6 +7,9 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.10",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.16",
         "easycorp/easyadmin-bundle": "*",
         "symfony/asset": "6.3.*",
         "symfony/console": "6.3.*",
@@ -21,7 +24,11 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.50"
+        "symfony/debug-bundle": "6.3.*",
+        "symfony/maker-bundle": "^1.50",
+        "symfony/monolog-bundle": "^3.0",
+        "symfony/stopwatch": "6.3.*",
+        "symfony/web-profiler-bundle": "6.3.*"
     },
     "config": {
         "allow-plugins": {
