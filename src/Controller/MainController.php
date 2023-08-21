@@ -10,8 +10,8 @@ use Doctrine\Bundle\MigrationsBundle;
 
 class MainController extends AbstractController
 {
-    #[Route('/main', name: 'app_main')]
-    public function index(): Response
+    #[Route('/', name: 'main_home')]
+    public function home(): Response
     {
         return $this->render('main/liste.html.twig', [
             'controller_name' => 'MainController',
