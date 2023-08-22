@@ -13,7 +13,7 @@ class Filtre
     private ?int $id = null;
 
 
-    private ?string $site = null;
+    private Site|null $site = null;
 
 
     private ?string $nom = null;
@@ -38,17 +38,23 @@ class Filtre
         return $this->id;
     }
 
-    public function getSite(): ?string
+    /**
+     * @return Site|null
+     */
+    public function getSite(): ?Site
     {
         return $this->site;
     }
 
-    public function setSite(?string $site): static
+    /**
+     * @param Site|null $site
+     */
+    public function setSite(?Site $site): void
     {
         $this->site = $site;
-
-        return $this;
     }
+
+
 
     public function getNom(): ?string
     {

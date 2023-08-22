@@ -48,25 +48,16 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
-    public function findBySite(Filtre $site)
+    public function findBySite(Filtre $filtre)
     {
-        $query= $this->createQueryBuilder('t')
-
-            ->andWhere('t.site IN (:site)')
-            ->setParameter('site',$site->getSite())
+        $query = $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.site IN (:site)')
+            ->setParameter('site',$filtre->getSite())
             ->getQuery();
 
         $paginator = new Paginator($query);
+
         return $paginator;
     }
 }

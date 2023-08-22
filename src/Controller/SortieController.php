@@ -31,8 +31,9 @@ class SortieController extends AbstractController
 
 
             }
-
+            
             if ($filtre->getSite()){
+                
                 $sorties=$sortieRepository->findBySite($filtre);
             }
 

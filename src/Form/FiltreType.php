@@ -17,10 +17,12 @@ class FiltreType extends AbstractType
     {
         $builder
             ->add('site', EntityType::class, [
+                'label' => false,
                 'class' => Site::class,
                 'choice_label' => 'nom',
                 'expanded'  => true,
                 'required' => false
+
                 //TODO mettre en liste déroulante
             ])
             ->add('nom')
