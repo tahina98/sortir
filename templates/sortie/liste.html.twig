@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SortieController!{% endblock %}
+
+{% block body %}
+
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">Nom de la sortie</th>
+                <th colspan="2">Date de la sortie</th>
+                <th colspan="2">Clôture</th>
+                <th colspan="2">Inscrits/nombre de place</th>
+                <th colspan="2">Etat</th>
+                <th colspan="2">Organisateur inscrit</th>
+                <th colspan="2">Organisateur</th>
+            </tr>
+            </thead>
+    {% for sortie in sorties %}
+            <tbody>
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut|date('d-m-Y')}}</td>
+                <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
+                <td>{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat.libelle }}</td>
+                <td>A completer</td>
+                <td>{{ sortie.organisateur.nom }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    {% endfor %}
+
+    <a href="{{path('sortie_creation')}}">Créer une sortie</a>
+{% endblock %}
