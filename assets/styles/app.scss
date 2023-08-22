@@ -5,3 +5,35 @@
 .tw{
   @apply chat chat-start chat-end chat-bubble
 }
+h1{
+  @apply text-3xl text-center my-2;
+
+}
+
+.chatcss{
+
+  background-color: #e1e8f6;
+  border-radius: 10px;
+  margin-left: 10px;
+  width: 600px;
+  padding: 20px;
+}
+
+.presentation{
+  background-color: #e1e8f6;
+  margin-left: 620px;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.imgIndex{
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.imgConcert{
+  border-radius: 10px;
+}

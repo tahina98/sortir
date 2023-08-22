@@ -16,7 +16,7 @@
     </head>
     <body >
 {#nav-bar#}
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-300 ">
     <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl">Sortir.com</a>
     </div>
@@ -33,11 +33,9 @@
                     <li>
                         <a class="justify-between">
                             Profile
-                            <span class="badge">New</span>
                         </a>
                     </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
+                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
                 </ul>
             {% endif %}
             {% if not app.user %}
@@ -47,8 +45,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                         </label>
                         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Se connecter</a></li>
-                            <li><a>Créer un compte</a></li>
+                            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                            <li><a href="{{ path('app_register') }}">Créer un compte</a></li>
 
                         </ul>
                     </div>
@@ -62,6 +60,7 @@
         </div>
     </div>
 </div>
+{#Fin nav bar#}
 
         {% block body %}
         {% endblock %}
