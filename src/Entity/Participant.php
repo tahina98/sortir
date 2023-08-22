@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
@@ -19,8 +20,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $pseudo = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -32,15 +31,28 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\Regex('/^[^0-9]*$/', message: 'votre nom ne peut contenir que des lettres')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+//    #[Assert\NotBlank(message:'Le champ prenom ne doit pas être vide')]
+    #[Assert\Regex('/^[^0-9]*$/', message: 'votre prénom ne peut contenir que des lettres')]
     private ?string $prenom = null;
 
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Le champ pseudo ne peut pas être nul')]
+    #[Assert\Length(null, 4)]
+    private ?string $pseudo = null;
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Le champ téléphone ne doit pas être vide')]
+    #[Assert\Regex('/^[0-9]{10}$/', message: 'Merci de renseigner un numéro de téléphone valide')]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Le champ mail ne doit pas être vide')]
+    #[Assert\Email(message: 'l\'email n\'est pas valide')]
     private ?string $mail = null;
 
     #[ORM\Column]
