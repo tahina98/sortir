@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: '_liste')]
+    //TODO Intégrer les rôles
+    //TODO  l'affichage par site / isncrit ou non / organisateur ou non /sorties passées
+        // TODO filtrer par date / nom de la sortie contient
     public function liste(SortieRepository $sortieRepository): Response
     {
         $sorties = $sortieRepository->findAll();
@@ -45,14 +48,9 @@ class SortieController extends AbstractController
         );
     }
 
-    #[Route('/detail/{$id}', name: '_detail', requirements:["id" => "\d+"])]
-    public function detail (SortieRepository $sortieRepository, int $id=4): Response
+    #[Route('/detail/{sortie}', name: '_detail')]
+    public function detail (SortieRepository $sortieRepository, Sortie $sortie): Response
     {
-        dump($id);
-        $sortie = $sortieRepository->findOneBy(
-            ["id"=>$id]
-        );
         return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
-
 }

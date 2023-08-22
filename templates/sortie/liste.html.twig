@@ -3,7 +3,7 @@
 {% block title %}Hello SortieController!{% endblock %}
 
 {% block body %}
-    {% for sortie in sorties %}
+
         <table>
             <thead>
             <tr>
@@ -16,6 +16,7 @@
                 <th colspan="2">Organisateur</th>
             </tr>
             </thead>
+    {% for sortie in sorties %}
             <tbody>
             <tr>
                 <td>{{ sortie.nom }}</td>
@@ -30,4 +31,6 @@
         </table>
 
     {% endfor %}
+
+    <a href="{{path('sortie_creation')}}">Créer une sortie</a>
 {% endblock %}
