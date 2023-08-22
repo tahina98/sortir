@@ -2,15 +2,13 @@
 module.exports = {
 
   daisyui: {
-    themes: ["light", "dark", "cupcake, lofi"],
+    themes: ["light", "dark", "cupcake", "winter"],
   },
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
   ],
-  theme: {
-    extend: {},
-  },
+
   plugins: [ require("daisyui")],
 }
 
