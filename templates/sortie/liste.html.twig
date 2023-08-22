@@ -10,17 +10,21 @@
                 <th colspan="2">Nom de la sortie</th>
                 <th colspan="2">Date de la sortie</th>
                 <th colspan="2">Clôture</th>
+                <th colspan="2">Inscrits/nombre de place</th>
                 <th colspan="2">Etat</th>
+                <th colspan="2">Organisateur inscrit</th>
                 <th colspan="2">Organisateur</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut }}</td>
-                <td>{{ sortie.dateLimiteInscription }}</td>
-                <td>{{ sortie.etat }}</td>
-                <td>{{ sortie.organisateur }}</td>
+                <td>{{ sortie.dateHeureDebut|date('d-m-Y')}}</td>
+                <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
+                <td>{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat.libelle }}</td>
+                <td>A completer</td>
+                <td>{{ sortie.organisateur.nom }}</td>
             </tr>
             </tbody>
         </table>

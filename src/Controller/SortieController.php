@@ -28,7 +28,7 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = new Sortie();
-
+        $sortie->setOrganisateur($this->getUser());
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($requete);
 
@@ -45,9 +45,10 @@ class SortieController extends AbstractController
         );
     }
 
-    #[Route('/{$id}', name: '_detail')]
-    public function detail (SortieRepository $sortieRepository, int $id): Response
+    #[Route('/detail/{$id}', name: '_detail', requirements:["id" => "\d+"])]
+    public function detail (SortieRepository $sortieRepository, int $id=4): Response
     {
+        dump($id);
         $sortie = $sortieRepository->findOneBy(
             ["id"=>$id]
         );
