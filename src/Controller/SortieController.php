@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Filtre;
 use App\Entity\Sortie;
+use App\Form\FiltreType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,10 +20,44 @@ class SortieController extends AbstractController
     //TODO Intégrer les rôles
     //TODO  l'affichage par site / isncrit ou non / organisateur ou non /sorties passées
         // TODO filtrer par date / nom de la sortie contient
-    public function liste(SortieRepository $sortieRepository): Response
+    public function liste(SortieRepository $sortieRepository, Request $requete): Response
     {
-        $sorties = $sortieRepository->findAll();
-        return $this->render('sortie/liste.html.twig', compact('sorties'));
+        $filtre=new Filtre();
+        $filtreForm = $this->createForm(FiltreType::class, $filtre);
+        $filtreForm->handleRequest($requete);
+        if ($filtreForm->isSubmitted() ){
+            if ($filtre->getNom()){
+                $sorties = $sortieRepository->findByNom($filtre);
+
+
+            }
+
+            if ($filtre->getSite()){
+                $sorties=$sortieRepository->findBySite($filtre);
+            }
+
+            /*if ($filtre->getDateHeureDebut()){
+                $sorties=$sortieRepository->findByDateHeureDebut($filtre->getDateHeureDebut());
+            }
+            if ($filtre->getDateHeureFin()){
+                $sorties=$sortieRepository->findByDateHeureFin($filtre->getDateHeureFin());
+            }
+            if ($filtre->getOrganisateur()){
+                $sorties=$sortieRepository->findByOrganisateur($filtre->getOrganisateur());
+            }
+            if ($filtre->getInscrit()){
+                $sorties=$sortieRepository->findByInscrit($filtre->getInscrit());
+            }
+            if ($filtre->getDatePassee()){
+                $sorties=$sortieRepository->findByDatePassee($filtre->getDatePassee());
+            }*/
+            return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm'));
+        }else{
+            $sorties = $sortieRepository->findAll();
+            $parSite="oui";
+            return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm','parSite'));
+        }
+
     }
 
     #[Route('/creation', name: '_creation')]
