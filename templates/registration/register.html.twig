@@ -3,14 +3,16 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>S'inscrire</h1>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.nom) }}
+
         {{ form_row(registrationForm.prenom) }}
         {{ form_row(registrationForm.pseudo) }}
+        <h2>4 catactères min</h2>
         {{ form_row(registrationForm.mail) }}
         {{ form_row(registrationForm.telephone) }}
         {{ form_label(registrationForm.site) }}
@@ -19,6 +21,10 @@
             label: 'Password'
         }) }}
 
+
+
+
+        <h2>Au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</h2>
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}

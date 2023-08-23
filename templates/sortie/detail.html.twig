@@ -3,16 +3,39 @@
 
 
 {% block body %}
-    <div>{{sortie.nom}}</div>
+
+    <div class="container">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{{sortie.nom}}</div>
+            <p class="text-gray-700 text-base">
+                {{sortie.infosSortie}}</p>
+            <div class="text-xl mb-2">Quand?</div>
+            <div>{{sortie.dateHeureDebut|date ('d/m/y H:i')}}</div>
+            <div>Date limite inscription : {{sortie.dateLimiteInscription |date ('d/m/y H:i')}}</div>
+            <div>Nombre de places : {{sortie.nbInscriptionsMax}}</div>
+            <div>Durée : {{sortie.duree}} minutes</div>
+            <div class="text-xl mb-2">Où? </div>
+            <div>Lieu : {{sortie.lieu.nom}}</div>
+            <div>{{sortie.lieu.rue}} {{sortie.lieu.ville.codePostal}} {{sortie.lieu.ville.nom}}</div>
+
+        </div>
+        <div class="px-6 pt-4 pb-2">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
+
+        </div>
+    </div>
+</div>
+
+    {#  <div>{{sortie.nom}}</div>
     <div>{{sortie.dateHeureDebut|date ('d/m/y H:i')}}</div>
     <div>{{sortie.dateLimiteInscription |date ('d/m/y H:i')}}</div>
     <div>{{sortie.nbInscriptionsMax}}</div>
     <div>{{sortie.duree}}</div>
     <div>{{sortie.infosSortie}}</div>
     <div>{{sortie.lieu.nom}}</div>
-    <div>{{sortie.lieu.nom}}</div>
     <div>{{sortie.lieu.rue}}</div>
-    <div>{{sortie.lieu.ville.codePostal}}</div>
+    <div>{{sortie.lieu.ville.codePostal}}</div>#}
 
 
 
