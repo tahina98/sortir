@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -17,18 +18,30 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\Regex('/^[a-zA-Z0-9_-]{3,35}$/', message: 'le nom ne peut contenir plus de 35 caractères(lettre ou chiffres')]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\GreaterThanOrEqual('today', message: 'La date de la sortie doit être dans le futur')]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\Positive]
+    #[Assert\LessThanOrEqual(300, message:'La durée doit être inférieure à 300 min')]
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\GreaterThanOrEqual('today', message: 'La date de la sortie doit être dans le futur')]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:'Le champ nom ne doit pas être vide')]
+    #[Assert\Positive]
+    #[Assert\LessThanOrEqual(50, message:'Le nombre de participants doit être inférieur à 50')]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

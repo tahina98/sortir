@@ -38,7 +38,7 @@ class SortieController extends AbstractController
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $entityManager->persist($sortie);
             $entityManager->flush();
-            return $this->redirectToRoute('/sorties');
+            return $this->redirectToRoute('sortie_liste');
         }
 
         return $this->render('sortie/creation.html.twig',

@@ -9,6 +9,6 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
 
-  plugins: [ require("daisyui")],
+  plugins: [ require("daisyui", "@tailwindcss/forms")],
 }
 
