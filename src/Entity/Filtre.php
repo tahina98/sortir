@@ -33,6 +33,18 @@ class Filtre
 
     private ?bool $datePassee = null;
 
+    /**
+     * @param bool|null $organisateur
+     */
+    public function __construct()
+    {
+        $this->organisateur= false;
+    }
+
+    /**
+     */
+
+
     public function getId(): ?int
     {
         return $this->id;

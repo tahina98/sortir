@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Filtre;
+use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -44,7 +45,7 @@ class SortieRepository extends ServiceEntityRepository
             ->select('s')
             ->andWhere('s.nom LIKE :nom')
             ->setParameter('nom',"%{$filtre->getNom()}%");
-            return $paginator = new Paginator($query);
+            return  new Paginator($query);
 
     }
 
@@ -56,8 +57,55 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('site',$filtre->getSite())
             ->getQuery();
 
-        $paginator = new Paginator($query);
+        return  new Paginator($query);
 
+
+    }
+
+    public function findByDateHeureDebut(Filtre $filtre)
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.dateHeureDebut >= :date')
+            ->setParameter('date', $filtre->getDateHeureDebut())
+            ->getQuery();
+
+        return  new Paginator($query);
+    }
+
+    public function findByDateHeureFin(Filtre $filtre)
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.dateHeureDebut <= :date')
+            ->setParameter('date', $filtre->getDateHeureFin())
+            ->getQuery();
+
+           return new Paginator($query);
+
+    }
+
+    public function findByOrganisateur(Participant $participant)
+    {
+        $querry= $this->createQueryBuilder('s')
+            ->andWhere('s.organisateur = :organisateur')
+            ->setParameter('organisateur', $participant)
+            ->getQuery();
+
+        $paginator = new Paginator($querry);
         return $paginator;
     }
+
+    public function findByInscrit(Participant $participant)
+    {
+        $querry= $this->createQueryBuilder('s')
+            ->andWhere('s.participants = :participants')
+            ->setParameter('participants', $participant)
+            ->getQuery();
+
+        $paginator = new Paginator($querry);
+        return $paginator;
+    }
+
+
 }
