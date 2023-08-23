@@ -8,11 +8,13 @@ use App\Form\FiltreType;
 use App\Form\SortieType;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Clock\now;
 
 #[Route('/sorties', name: 'sortie')]
 class SortieController extends AbstractController
@@ -23,53 +25,78 @@ class SortieController extends AbstractController
         // TODO filtrer par date / nom de la sortie contient
     public function liste(SortieRepository $sortieRepository, Request $requete, ParticipantRepository $participantRepository): Response
     {
-        $filtre=new Filtre();
+        /*$filtre=new Filtre();
         $filtreForm = $this->createForm(FiltreType::class, $filtre);
         $filtreForm->handleRequest($requete);
         $sorties=[];
 
+
+
         if ($filtreForm->isSubmitted() ){
-            $filtre->setOrganisateur(true);
 
-            if ($filtre->getNom()){
-                $sorties = $sortieRepository->findByNom($filtre);
-            }
-            if ($filtre->getSite()){
 
-                $sorties=$sortieRepository->findBySite($filtre);
-            }
 
-            if ($filtre->getDateHeureDebut()){
-                $sorties=$sortieRepository->findByDateHeureDebut($filtre);
-            }
 
-            if ($filtre->getDateHeureFin()){
-                $sorties=$sortieRepository->findByDateHeureFin($filtre);
+            if ($filtre->getNom()!=null){
+
+                array_push($sorties,$sortieRepository->findByNom($filtre));
+
+
             }
 
 
-            if ($filtre->isOrganisateur()){
+            if ($filtre->getSite()!=null){
+
+                array_push($sorties,$sortieRepository->findBySite($filtre));
+
+            }
+
+            if ($filtre->getDateHeureDebut()!=null){
+                array_push($sorties,$sortieRepository->findByDateHeureDebut($filtre));
+
+            }
+
+            if ($filtre->getDateHeureFin()!=null){
+                array_push($sorties,$sortieRepository->findByDateHeureFin($filtre));
+
+            }
+
+
+            if ($filtre->isOrganisateur()==true){
+
 
                 $utilisateur = $participantRepository->findOneBy(["pseudo"=>$this->getUser()->getUserIdentifier()]);
-                $sorties=$sortieRepository->findByOrganisateur($utilisateur);
+                array_push($sorties,$sortieRepository->findByOrganisateur($utilisateur));
+
             }
 
 
 
-            if ($filtre->isInscrit()){
+            if ($filtre->isInscrit()!=null){
                 $utilisateur = $participantRepository->findOneBy(["pseudo"=>$this->getUser()->getUserIdentifier()]);
-                $sorties=$sortieRepository->findByInscrit($utilisateur);
+                array_push($sorties,$sortieRepository->findByInscrit($utilisateur));
             }
-            /*
-            if ($filtre->getDatePassee()){
-                $sorties=$sortieRepository->findByDatePassee($filtre->getDatePassee());
-            }*/
+
+            if ($filtre->isDatePassee()!=null){
+                array_push($sorties,$sortieRepository->findByDatePassee());
+            }
+
+            dd($filtre);
             return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm'));
         }else{
-            $sorties = $sortieRepository->findAll();
-            $parSite="oui";
-            return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm','parSite'));
-        }
+
+            array_push($sorties,$sortieRepository->findAll());
+
+            return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm'));
+        }*/
+        //essaie n2
+        $filtre =new Filtre();
+        $filtreForm = $this->createForm(FiltreType::class, $filtre);
+        $filtreForm->handleRequest($requete);
+        $utilisateur = $participantRepository->findOneBy(["pseudo"=>$this->getUser()->getUserIdentifier()]);
+        $sorties=$sortieRepository->findFiltre($filtre,$utilisateur);
+
+        return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm'));
 
     }
 

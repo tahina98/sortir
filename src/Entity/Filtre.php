@@ -39,6 +39,10 @@ class Filtre
     public function __construct()
     {
         $this->organisateur= false;
+        $this->dateHeureDebut =null;
+        $this->dateHeureFin = null;
+
+
     }
 
     /**

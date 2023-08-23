@@ -28,13 +28,8 @@ class FiltreType extends AbstractType
                 //TODO mettre en liste déroulante
             ])
             ->add('nom')
-            ->add('dateHeureDebut', DateType::class, [
-                'widget' => 'choice',
-                'input'  => 'datetime_immutable'
-            ])
-            ->add('dateHeureFin',DateType::class, [
-                'widget' => 'choice',
-                'input'  => 'datetime_immutable'])
+            ->add('dateHeureDebut')
+            ->add('dateHeureFin')
             ->add('organisateur', CheckboxType::class, [
                 'mapped' => false,
                 'required' => false
@@ -43,11 +38,11 @@ class FiltreType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ])
-            /*
+
             ->add('datePassee', CheckboxType::class, [
                 'mapped' => false,
                 'required' => false
-            ])*/
+            ])
             ->add('submit',SubmitType::class)
         ;
     }
@@ -56,6 +51,13 @@ class FiltreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Filtre::class,
+            'method' => 'GET',
+            'csrf_protection' => false
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }
