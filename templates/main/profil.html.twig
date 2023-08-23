@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Nom</h2>
+    <p>{{ app.user.nom }}</p>
+    <h2>Prénom</h2>
+    <p>{{ app.user.prenom }}</p>
+    <h2>Pseudo</h2>
+    <p>{{ app.user.pseudo }}</p>
+    <h2>Mail</h2>
+    <p>{{ app.user.mail }}</p>
+    <h2>Téléphone</h2>
+    <p>{{ app.user.telephone }}</p>
+    <h2>Site de rattachement</h2>
+    <p>{{ app.user.site.nom }}</p>
+
+    <a href="{{ path('main_modifProfil') }}">Modifier mon profil</a>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

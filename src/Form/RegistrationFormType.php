@@ -43,12 +43,11 @@ class RegistrationFormType extends AbstractType
 
                 ],
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
                 'constraints' =>[
                     new Regex('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/','Merci de respecter le format du mot de passe')
                 ]
-
             ])
+
         ;
     }
 
