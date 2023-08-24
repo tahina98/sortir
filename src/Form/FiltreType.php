@@ -28,7 +28,10 @@ class FiltreType extends AbstractType
                 //TODO mettre en liste déroulante
             ])
             ->add('nom')
-            ->add('dateHeureDebut')
+            ->add('dateHeureDebut', DateType::class, [
+                'widget' => 'choice',
+                'input'  => 'datetime_immutable'
+            ])
             ->add('dateHeureFin')
             ->add('organisateur', CheckboxType::class, [
                 'mapped' => false,
