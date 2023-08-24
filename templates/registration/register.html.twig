@@ -3,29 +3,51 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>S'inscrire</h1>
 
-    {{ form_errors(registrationForm) }}
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <div class="container">
+    <div class="w-full max-w-sm">
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nom) }}
+        {{ form_start(registrationForm) }}
+        <form>
+            <div class="mb-4">
+                {{ form_label(registrationForm.nom) }}
+                {{ form_widget(registrationForm.nom)}}
+            </div>
+            <div class="mb-4">
+                {{ form_label(registrationForm.prenom) }}
+                {{ form_widget(registrationForm.prenom)}}
+            </div>
+            <div class="mb-4">
+                {{ form_label(registrationForm.pseudo) }}
+                {{ form_widget(registrationForm.pseudo)}}
+            </div>
+            <div class="mb-4">
+                {{ form_label(registrationForm.mail) }}
+                {{ form_widget(registrationForm.mail) }}
+            </div>
+            <div class="mb-4">
+                {{ form_label(registrationForm.telephone) }}
+                {{ form_widget(registrationForm.telephone) }}
+            </div>
 
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.pseudo) }}
-        <h2>4 catactères min</h2>
-        {{ form_row(registrationForm.mail) }}
-        {{ form_row(registrationForm.telephone) }}
-        {{ form_label(registrationForm.site) }}
-        {{ form_widget(registrationForm.site) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+                {{ form_label(registrationForm.site) }}
+                {{ form_widget(registrationForm.site) }}
 
 
+            <div class="mb-6">
+                {{ form_widget(registrationForm.plainPassword) }}
+            </div>
+            <div class="flex items-center justify-between">
 
+                <a href="#">
+                    Mot de passe oublié ?
+                </a>
+                {{ form_end(registrationForm) }}
+            </div>
+        </form>
 
-        <h2>Au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</h2>
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        {{ form_errors(registrationForm) }}
+    </div>
+    </div>
 {% endblock %}

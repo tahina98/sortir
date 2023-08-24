@@ -7,8 +7,13 @@ module.exports = {
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
+    "./node_modules/flowbite/**/*.js"
   ],
 
-  plugins: [ require("daisyui", "@tailwindcss/forms")],
+  plugins: [
+      require("daisyui", "@tailwindcss/forms"),
+      require('flowbite/plugin')
+
+  ],
 }
 
