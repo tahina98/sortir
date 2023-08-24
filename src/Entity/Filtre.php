@@ -25,7 +25,7 @@ class Filtre
     private ?\DateTimeInterface $dateHeureFin = null;
 
 
-    private ?bool $organisateur = null;
+    private ?bool $organisateur = false;
 
 
     private ?bool $inscrit = null;
@@ -33,20 +33,6 @@ class Filtre
 
     private ?bool $datePassee = null;
 
-    /**
-     * @param bool|null $organisateur
-     */
-    public function __construct()
-    {
-        $this->organisateur= false;
-        $this->dateHeureDebut =null;
-        $this->dateHeureFin = null;
-
-
-    }
-
-    /**
-     */
 
 
     public function getId(): ?int

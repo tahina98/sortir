@@ -30,20 +30,35 @@ class FiltreType extends AbstractType
             ->add('nom')
             ->add('dateHeureDebut', DateType::class, [
                 'widget' => 'choice',
-                'input'  => 'datetime_immutable'
+                'input'  => 'datetime_immutable',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'mois', 'day' => 'jour',
+                ],
+                'required'=>false,
+                'format' => 'dd MM yyyy',
+
             ])
-            ->add('dateHeureFin')
+            ->add('dateHeureFin', DateType::class, [
+                'widget' => 'choice',
+                'input'  => 'datetime_immutable',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'mois', 'day' => 'jour',
+                ],
+                'required'=>false,
+                'format' => 'dd MM yyyy',
+            ])
             ->add('organisateur', CheckboxType::class, [
-                'mapped' => false,
+                'mapped' => true,
                 'required' => false
             ])
-            ->add('inscrit', CheckboxType::class, [
-                'mapped' => false,
+            //Fonctionnalité pas faite mais foncttionnel
+            /*->add('inscrit', CheckboxType::class, [
+                'mapped' => true,
                 'required' => false
-            ])
+            ])*/
 
             ->add('datePassee', CheckboxType::class, [
-                'mapped' => false,
+                'mapped' => true,
                 'required' => false
             ])
             ->add('submit',SubmitType::class)

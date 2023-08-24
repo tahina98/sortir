@@ -132,23 +132,27 @@ class SortieRepository extends ServiceEntityRepository
                 ->andWhere('s.dateHeureDebut <= :date')
                 ->setParameter('date', $filtre->getDateHeureFin());
         }
-        if (!empty($filtre->isOrganisateur())){
+
+        if ($filtre->isOrganisateur()){
+
             $query = $query
                 ->andWhere('s.organisateur = :organisateur')
                 ->setParameter('organisateur', $participant);
+
         }
-        //pas sur
-        if (!empty($filtre->isInscrit())){
+        //fonctionnalité pas faite mais fonctionnel
+       /* if ($filtre->isInscrit()){
             $query = $query
                 ->andWhere('s.participants = :participants')
                 ->setParameter('participants', $participant);
-        }
-        if (!empty($filtre->isDatePassee())){
+        }*/
+        if ($filtre->isDatePassee()){
             $query = $query
-                ->andWhere('s.etat == 2');
+                ->andWhere('s.etat = 2');
         }
 
         return new Paginator($query);
+
 
     }
 }
