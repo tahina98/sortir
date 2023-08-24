@@ -8,7 +8,7 @@
     <div id="ville">{{ form_row(lieuForm.ville) }}</div>
     {{ form_end(lieuForm) }}
 
-    <script>
+    {#<script>
         let rue = '';
         let ville = '';
         let baseUrl = "https://api-adresse.data.gouv.fr/search/?q=";
@@ -22,11 +22,18 @@
             ville = selectElem.options[selectElem.selectedIndex].innerText;
             url = baseUrl + rue + '+' + ville;
 
-            let resultat = fetch(url)
-                .then(response => response.json())
-                .then(response =>)
+            let reponse = fetch(url)
+                .then(res => res.json)
+                .then(
+                    json=>{
+                        json['']
+                    }
+                )
+            console.log(reponse);
         });
-    </script>
+
+
+    </script>#}
 
 {% endblock %}
 
