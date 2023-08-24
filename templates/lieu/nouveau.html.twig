@@ -11,6 +11,9 @@
     {{ form_end(lieuForm) }}
 
     <script>
+        document.addEventListener("change", () => {
+            let ville = document.getElementById('ville').value;
+            console.log(ville)})
         document.addEventListener("keyup", () => {
             let ville = document.getElementById('ville').value;
             console.log(ville);
