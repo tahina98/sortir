@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(lieuForm) }}
+    {{ form_row(lieuForm.nom) }}
+    <div id="rue">{{ form_row(lieuForm.rue) }}</div>
+    <div id="ville">{{ form_row(lieuForm.ville) }}</div>
+    {{ form_end(lieuForm) }}
+
+    <script>
+        let rue = '';
+        let ville = '';
+        let baseUrl = "https://api-adresse.data.gouv.fr/search/?q=";
+        document.getElementById("lieu_rue").addEventListener("keyup", () => {
+            rue = document.getElementById("lieu_rue").value.replace(/ /g, "+");
+            url = baseUrl + rue + '+' + ville;
+        });
+
+        let selectElem = document.getElementById("lieu_ville");
+        selectElem.addEventListener("change", () => {
+            ville = selectElem.options[selectElem.selectedIndex].innerText;
+            url = baseUrl + rue + '+' + ville;
+
+            let resultat = fetch(url)
+                .then(response => response.json())
+                .then(response =>)
+        });
+    </script>
+
+{% endblock %}
+
+    {% block title %}
+
+    {% endblock %}
+

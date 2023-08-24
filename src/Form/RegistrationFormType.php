@@ -36,6 +36,8 @@ class RegistrationFormType extends AbstractType
                 ],
                 'choice_label' => 'nom'
             ])
+
+
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [ 'label' => 'Mot de passe : ',
@@ -43,6 +45,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' => [ 'label' => 'Confirmez le mot de passe',
                     'hash_property_path' =>'password'
+
 
                 ],
                 'mapped' => false,

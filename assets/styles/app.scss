@@ -46,10 +46,9 @@ input{
 
 a{
   @apply inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800
-
 }
-
-  .chatcss{
+  
+.chatcss{
 
     background-color: #e1e8f6;
     border-radius: 10px;
@@ -58,21 +57,50 @@ a{
     padding: 20px;
   }
 
-  .presentation{
+.presentation{
     background-color: #e1e8f6;
     margin-left: 620px;
     margin-right: 10px;
     border-radius: 10px;
     padding: 20px;
   }
-
-  .imgIndex{
+  
+.imgIndex{
     margin-right: 10px;
     margin-left: 10px;
     border-radius: 10px;
     margin-top: 40px;
   }
 
-  .imgConcert{
-    border-radius: 10px;
-  }
+.imgConcert{
+  border-radius: 10px;
+}
+
+.toutSortie{
+  margin-top: 20px;
+}
+
+.passage:hover{
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.icones{
+  margin-top: 80px;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.icones i:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.divIcones{
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}

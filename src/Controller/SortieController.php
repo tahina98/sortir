@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Filtre;
 use App\Entity\Sortie;
+use App\Form\FiltreType;
 use App\Form\SortieType;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Clock\now;
 
 #[Route('/sorties', name: 'sortie')]
 class SortieController extends AbstractController
@@ -18,10 +23,16 @@ class SortieController extends AbstractController
     //TODO Intégrer les rôles
     //TODO  l'affichage par site / isncrit ou non / organisateur ou non /sorties passées
         // TODO filtrer par date / nom de la sortie contient
-    public function liste(SortieRepository $sortieRepository): Response
+    public function liste(SortieRepository $sortieRepository, Request $requete, ParticipantRepository $participantRepository): Response
     {
-        $sorties = $sortieRepository->findAll();
-        return $this->render('sortie/liste.html.twig', compact('sorties'));
+        //essaie n2
+        $filtre =new Filtre();
+        $filtreForm = $this->createForm(FiltreType::class, $filtre);
+        $filtreForm->handleRequest($requete);
+        $utilisateur = $participantRepository->findOneBy(["pseudo"=>$this->getUser()->getUserIdentifier()]);
+        $sorties=$sortieRepository->findFiltre($filtre,$utilisateur);
+        return $this->render('sortie/liste.html.twig', compact('sorties','filtreForm'));
+
     }
 
     #[Route('/creation', name: '_creation')]
