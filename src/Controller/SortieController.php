@@ -64,4 +64,18 @@ class SortieController extends AbstractController
     {
         return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
+
+    #[Route('/inscription/{sortie}', name: '_inscription')]
+    public function inscription (
+        Sortie $sortie,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+
+        $sortie->addParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+            return $this->redirectToRoute('sortie_liste');
+    }
 }
