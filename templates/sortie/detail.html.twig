@@ -24,10 +24,20 @@
             <p class="text-xl mb-2">Participants :</p>
             <ul>
                 {% for participant in sortie.participants %}
-                    <li>
-                        <img src="" alt="Image de profil">
-                        <p>{{ participant.pseudo }}</p>
-                    </li>
+                    {% if participant is same as (app.user) %}
+                        <li>
+                            <img src="" alt="Image de profil">
+                            <p>Vous</p>
+                        </li>
+
+                    {% endif %}
+                    {% if participant is not same as(app.user) %}
+                        <li>
+                            <img src="" alt="Image de profil">
+                            <p>{{ participant.pseudo }}</p>
+                        </li>
+                    {% endif %}
+
                 {% endfor %}
             </ul>
 
