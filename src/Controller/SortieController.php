@@ -6,6 +6,7 @@ use App\Entity\Filtre;
 use App\Entity\Sortie;
 use App\Form\FiltreType;
 use App\Form\SortieType;
+use App\Form\SuppressionType;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use DateTime;
@@ -65,6 +66,37 @@ class SortieController extends AbstractController
         return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
 
+
+
+    #[Route('/modification/suppression/{id}', name: '_suppression')]
+    public function suppression (
+        EntityManagerInterface $entityManager,
+        SortieRepository $sortieRepository,
+        Request $requete,
+        int $id
+    ): Response
+    {
+        $sortie=$sortieRepository->find($id);
+        $sortieForm = $this->createForm(SuppressionType::class, $sortie);
+        $sortieForm->handleRequest($requete);
+
+        if ($sortieForm->isSubmitted() ){
+
+            $clicked = $requete->request->get('clicked');
+           if ($clicked ==='supprimer') {
+
+                $entityManager->remove($sortie);
+                $entityManager->flush();
+            }
+            if ($clicked ==='modifier') {
+
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+               return $this->redirectToRoute('sortie_liste');
+        }
+        return $this->render('sortie/suppression.html.twig', compact('sortieForm','sortie'));
+
     #[Route('/inscription/{sortie}', name: '_inscription')]
     public function inscription (
         Sortie $sortie,
@@ -91,5 +123,6 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('sortie_liste');
+
     }
 }

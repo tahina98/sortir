@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +28,12 @@ class FiltreType extends AbstractType
 
                 //TODO mettre en liste déroulante
             ])
-            ->add('nom')
+            ->add('nom', TextType::class, [
+                'required'=>false,
+                'attr' => array(
+                    'placeholder' => 'Rechercher'
+                )
+            ])
             ->add('dateHeureDebut', DateType::class, [
                 'widget' => 'choice',
                 'input'  => 'datetime_immutable',
