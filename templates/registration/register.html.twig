@@ -3,46 +3,46 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <div class="container">
     <div class="w-full max-w-sm">
 
-        {{ form_start(registrationForm) }}
-        <form>
-            <div class="mb-4">
-                {{ form_label(registrationForm.nom) }}
-                {{ form_widget(registrationForm.nom)}}
-            </div>
-            <div class="mb-4">
-                {{ form_label(registrationForm.prenom) }}
-                {{ form_widget(registrationForm.prenom)}}
-            </div>
-            <div class="mb-4">
-                {{ form_label(registrationForm.pseudo) }}
-                {{ form_widget(registrationForm.pseudo)}}
-            </div>
-            <div class="mb-4">
-                {{ form_label(registrationForm.mail) }}
-                {{ form_widget(registrationForm.mail) }}
-            </div>
-            <div class="mb-4">
-                {{ form_label(registrationForm.telephone) }}
-                {{ form_widget(registrationForm.telephone) }}
-            </div>
+     {{ form_errors(registrationForm) }}
 
-                {{ form_label(registrationForm.site) }}
-                {{ form_widget(registrationForm.site) }}
+    {{ form_start(registrationForm) }}
 
+    {{ form_label(registrationForm.nom) }}
+    {{ form_widget(registrationForm.nom) }}
+    {{ form_errors(registrationForm.nom) }}
 
-            <div class="mb-6">
-                {{ form_widget(registrationForm.plainPassword) }}
-            </div>
+    {{ form_label(registrationForm.prenom) }}
+    {{ form_widget(registrationForm.prenom) }}
+    {{ form_errors(registrationForm.prenom) }}
 
-            {{ form_end(registrationForm) }}
-        </form>
+    {{ form_label(registrationForm.pseudo) }}
+    {{ form_widget(registrationForm.pseudo) }}
+    {{ form_errors(registrationForm.pseudo) }}
 
-        {{ form_errors(registrationForm) }}
+    <h2>4 caractères min</h2>
+
+    {{ form_label(registrationForm.mail) }}
+    {{ form_widget(registrationForm.mail) }}
+    {{ form_errors(registrationForm.mail) }}
+
+    {{ form_label(registrationForm.telephone) }}
+    {{ form_widget(registrationForm.telephone) }}
+    {{ form_errors(registrationForm.telephone) }}
+
+    {{ form_label(registrationForm.site) }}
+    {{ form_widget(registrationForm.site) }}
+    {{ form_row(registrationForm.plainPassword, {
+        label: 'Password'
+    }) }}
+
+    <h2>Au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</h2>
+
+    <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
     </div>
     </div>
 {% endblock %}
