@@ -38,13 +38,8 @@
             <div class="mb-6">
                 {{ form_widget(registrationForm.plainPassword) }}
             </div>
-            <div class="flex items-center justify-between">
 
-                <a href="#">
-                    Mot de passe oublié ?
-                </a>
-                {{ form_end(registrationForm) }}
-            </div>
+            {{ form_end(registrationForm) }}
         </form>
 
         {{ form_errors(registrationForm) }}

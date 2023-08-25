@@ -67,6 +67,7 @@ class SortieController extends AbstractController
     }
 
 
+
     #[Route('/modification/suppression/{id}', name: '_suppression')]
     public function suppression (
         EntityManagerInterface $entityManager,
@@ -95,5 +96,33 @@ class SortieController extends AbstractController
                return $this->redirectToRoute('sortie_liste');
         }
         return $this->render('sortie/suppression.html.twig', compact('sortieForm','sortie'));
+
+    #[Route('/inscription/{sortie}', name: '_inscription')]
+    public function inscription (
+        Sortie $sortie,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+
+        $sortie->addParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+            return $this->redirectToRoute('sortie_liste');
+    }
+
+    #[Route('/desistement/{sortie}', name: '_desistement')]
+    public function desistement (
+        Sortie $sortie,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+
+        $sortie->removeParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_liste');
+
     }
 }
