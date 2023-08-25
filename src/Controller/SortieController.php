@@ -78,4 +78,18 @@ class SortieController extends AbstractController
 
             return $this->redirectToRoute('sortie_liste');
     }
+
+    #[Route('/desistement/{sortie}', name: '_desistement')]
+    public function desistement (
+        Sortie $sortie,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+
+        $sortie->removeParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_liste');
+    }
 }
