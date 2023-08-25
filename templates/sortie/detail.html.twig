@@ -21,6 +21,17 @@
             <div>Lieu : {{sortie.lieu.nom}}</div>
             <div>{{sortie.lieu.rue}} {{sortie.lieu.ville.codePostal}} {{sortie.lieu.ville.nom}}</div>
 
+            <p class="text-xl mb-2">Participants :</p>
+            <ul>
+                {% for participant in sortie.participants %}
+                    <li>
+                        <img src="" alt="Image de profil">
+                        <p>{{ participant.pseudo }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
         </div>
         <div class="px-6 pt-4 pb-2">
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
