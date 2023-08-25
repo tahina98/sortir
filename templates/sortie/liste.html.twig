@@ -32,6 +32,12 @@
                     %}
                         <a href="{{ path('sortie_inscription', {'sortie': sortie.id}) }}"> S'inscrire </a>
                     {% endif %}
+                    {% if sortie.etat.id == '2'
+                        and sortie.dateLimiteInscription > "now"
+                        and app.user in sortie.participants
+                    %}
+                        <a href="{{ path('sortie_desistement', {'sortie': sortie.id}) }}" style="color:darkred"> Se désister </a>
+                    {% endif %}
 
 
                 </div>
