@@ -3,9 +3,11 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>S'inscrire</h1>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <div class="container">
+    <div class="w-full max-w-sm">
 
-    {{ form_errors(registrationForm) }}
+     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
 
@@ -41,4 +43,6 @@
 
     <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    </div>
+    </div>
 {% endblock %}

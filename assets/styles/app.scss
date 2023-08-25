@@ -2,37 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+//Palette de couleurs
+$bleu : #5CAFE7 ;
+$bleuClair : #82CEF9;
+$blanc : #FBFBFB ;
+$jaune : #FFE361 ;
+$rose : #FF679D ;
+
 .tw{
   @apply chat chat-start chat-end chat-bubble
 }
-h1{
-  @apply text-3xl text-center my-2;
+
+.container{
+  display:flex;
+  justify-content: center;
+ @apply mb-2 mt-2
+}
+
+form{
+  @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4
+}
+
+label{
+  @apply block text-gray-700 text-sm font-bold mb-2;
 
 }
 
+button{
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+
+}
+
+.radio{
+  @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
+  display: flex;
+  flex-direction: row;
+}
+
+input{
+  @apply rounded shadow appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight;
+
+}
+
+a{
+  @apply inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800
+}
+  
 .chatcss{
 
-  background-color: #e1e8f6;
-  border-radius: 10px;
-  margin-left: 10px;
-  width: 600px;
-  padding: 20px;
-}
+    background-color: #e1e8f6;
+    border-radius: 10px;
+    margin-left: 10px;
+    width: 600px;
+    padding: 20px;
+  }
 
 .presentation{
-  background-color: #e1e8f6;
-  margin-left: 620px;
-  margin-right: 10px;
-  border-radius: 10px;
-  padding: 20px;
-}
-
+    background-color: #e1e8f6;
+    margin-left: 620px;
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
 .imgIndex{
-  margin-right: 10px;
-  margin-left: 10px;
-  border-radius: 10px;
-  margin-top: 40px;
-}
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    margin-top: 40px;
+  }
 
 .imgConcert{
   border-radius: 10px;
@@ -65,4 +103,22 @@ h1{
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+#nom{
+  width: 20vw;
+  border-radius: 10px;
+  margin: 10px;
+}
+#site{
+  display: flex;
+  padding: 5px;
+}
+
+#site label{
+  margin: 5px;
+  margin-right: 30px;
+}
+
+#site input{
+  margin-top: 7px;
 }

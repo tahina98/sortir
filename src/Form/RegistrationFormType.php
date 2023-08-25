@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,8 +31,10 @@ class RegistrationFormType extends AbstractType
             ->add('telephone')
             ->add('site', EntityType::class, [
                 'class' => Site::class,
-                'choice_label' => 'nom',
-                'expanded'  => true
+                'attr'=>[
+                    'class'=>'radio'
+                ],
+                'choice_label' => 'nom'
             ])
 
 
@@ -48,6 +51,11 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' =>[
                     new Regex('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/','Merci de respecter le format du mot de passe')
+                ]
+            ])
+            ->add('save', SubmitType::class,[
+                'attr'=>[
+                    'type'=>'button'
                 ]
             ])
 

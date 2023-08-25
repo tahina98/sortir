@@ -3,41 +3,127 @@
 {% block title %}Hello SortieController!{% endblock %}
 
 {% block body %}
-    {% form_theme filtreForm 'tailwind_2_layout.html.twig' %}
-    {{ form(filtreForm) }}
+
+
+
+    <form class="rechercheFiltree">
+        <div class="rechercheFiltre">
+            {{ form_widget(filtreForm.nom) }}
+        </div>
+        <div class="siteFiltre">
+            <p>Site :</p>
+            <div class="widgetSiteFiltre">
+                {{ form_widget(filtreForm.site) }}
+            </div>
+        </div>
+        <div class="debutFiltre">
+            <p>Du : </p>
+            <div class="debutWidgetFiltre">
+                {{ form_widget(filtreForm.dateHeureDebut) }}
+            </div>
+        </div>
+        <div class="finFiltre">
+            <p>Au : </p>
+            <div class="finWidgetFiltre">
+                {{ form_widget(filtreForm.dateHeureFin) }}
+            </div>
+        </div>
+        <div class="organisateur">
+            <p>Organisateur :</p>
+                {{ form_widget(filtreForm.organisateur) }}
+        </div>
+        <div class="datePassee">
+            <p>Dépassée :</p>
+            {{ form_widget(filtreForm.datePassee) }}
+        </div>
+
+        <div class="submit">
+            {{ form_widget(filtreForm.submit) }}
+        </div>
+
+    </form>
+
+
+
+
+
 
 
     <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
 
+
+        {% for sortie in sorties %}
+            <a href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
+                <div class="container">
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                        <div class="passage">
+                            <div class="px-6 py-4">
+                                <div class="font-bold text-xl mb-2"><h2>{{ sortie.nom }}</h2></div>
+                                <p class="text-gray-700 text-base">
+                                    {{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
+                                <p class="text-gray-700 text-base">
+                                    {{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
+                                <p>Max : {{ sortie.nbInscriptionsMax }}</p>
+                                <p>{{ sortie.etat.libelle }}</p>
+                                <p>{{ sortie.organisateur.nom }}</p>
+
+
+                            </div>
+                            <div class="px-6 pt-4 pb-2">
+                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
     {% for sortie in sorties %}
-        <a href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
+
         <div class="container">
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 <div class="passage">
                 <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2"><h2>{{ sortie.nom  }}</h2></div>
+                    <a href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
+                        <div class="font-bold text-xl mb-2"><h2>{{ sortie.nom  }}</h2></div>
                     <p class="text-gray-700 text-base">
                         {{ sortie.dateHeureDebut|date('d-m-Y')}}</p>
                     <p class="text-gray-700 text-base">
                         {{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
-                    <p>Max : {{ sortie.nbInscriptionsMax }}</p>
+                    <p>Inscriptions :  {{ sortie.participants.count }}/ {{ sortie.nbInscriptionsMax }}</p>
                     <p>{{ sortie.etat.libelle }}</p>
                     <p>{{ sortie.organisateur.nom }}</p>
+                    </a>
+                    {% if sortie.etat.id == '2'
+                        and sortie.dateLimiteInscription > "now"
+                        and sortie.nbInscriptionsMax > sortie.participants.count
+                        and app.user not in sortie.participants
+                    %}
+                        <a href="{{ path('sortie_inscription', {'sortie': sortie.id}) }}"> S'inscrire </a>
+                    {% endif %}
+                    {% if sortie.etat.id == '2'
+                        and sortie.dateLimiteInscription > "now"
+                        and app.user in sortie.participants
+                    %}
+                        <a href="{{ path('sortie_desistement', {'sortie': sortie.id}) }}" style="color:darkred"> Se désister </a>
+                    {% endif %}
 
 
                 </div>
                 <div class="px-6 pt-4 pb-2">
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
-
                 </div>
+
                 </div >
             </div>
         </div>
-        </a>
+
     {% endfor %}
+
 
     </div>
 
 
-    <a href="{{path('sortie_creation')}}">Créer une sortie</a>
+    <a href="{{ path('sortie_creation') }}">Créer une sortie</a>
 {% endblock %}
