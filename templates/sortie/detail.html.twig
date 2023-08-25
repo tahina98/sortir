@@ -10,14 +10,37 @@
             <div class="font-bold text-xl mb-2">{{sortie.nom}}</div>
             <p class="text-gray-700 text-base">
                 {{sortie.infosSortie}}</p>
-            <div class="text-xl mb-2">Quand?</div>
-            <div>{{sortie.dateHeureDebut|date ('d/m/y H:i')}}</div>
+            <p class="text-xl mb-2">Quand?</p>
+            <div>
+                <p>Le {{sortie.dateHeureDebut|date ('d/m/y')}} à {{sortie.dateHeureDebut|date ('H')}}h{{sortie.dateHeureDebut|date ('i')}}</p>
+            </div>
             <div>Date limite inscription : {{sortie.dateLimiteInscription |date ('d/m/y H:i')}}</div>
             <div>Nombre de places : {{sortie.nbInscriptionsMax}}</div>
             <div>Durée : {{sortie.duree}} minutes</div>
             <div class="text-xl mb-2">Où? </div>
             <div>Lieu : {{sortie.lieu.nom}}</div>
             <div>{{sortie.lieu.rue}} {{sortie.lieu.ville.codePostal}} {{sortie.lieu.ville.nom}}</div>
+
+            <p class="text-xl mb-2">Participants :</p>
+            <ul>
+                {% for participant in sortie.participants %}
+                    {% if participant is same as (app.user) %}
+                        <li>
+                            <img src="" alt="Image de profil">
+                            <p>Vous</p>
+                        </li>
+
+                    {% endif %}
+                    {% if participant is not same as(app.user) %}
+                        <li>
+                            <img src="" alt="Image de profil">
+                            <p>{{ participant.pseudo }}</p>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+
 
         </div>
         <div class="px-6 pt-4 pb-2">
@@ -27,15 +50,7 @@
     </div>
 </div>
 
-    {#  <div>{{sortie.nom}}</div>
-    <div>{{sortie.dateHeureDebut|date ('d/m/y H:i')}}</div>
-    <div>{{sortie.dateLimiteInscription |date ('d/m/y H:i')}}</div>
-    <div>{{sortie.nbInscriptionsMax}}</div>
-    <div>{{sortie.duree}}</div>
-    <div>{{sortie.infosSortie}}</div>
-    <div>{{sortie.lieu.nom}}</div>
-    <div>{{sortie.lieu.rue}}</div>
-    <div>{{sortie.lieu.ville.codePostal}}</div>#}
+
 
 
 
