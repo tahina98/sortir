@@ -60,7 +60,7 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
 
-    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sorties')]
+    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sorties', cascade: ['all'])]
     private Collection $participants;
 
     #[ORM\ManyToOne(inversedBy: 'sortiesOrganisees')]
