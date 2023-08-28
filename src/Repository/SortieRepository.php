@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Filtre;
 use App\Entity\Participant;
 use App\Entity\Site;
@@ -30,6 +31,90 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+
+//    /**
+//     * @return Sortie[] Returns an array of Sortie objects
+//     */
+    /*public function findBySite($value): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.site = :val')
+            ->setParameter('val', $value)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }*/
+
+    /* public function findByNom(Filtre $filtre)
+     {
+         return $this->createQueryBuilder('s')
+             ->select('s')
+             ->andWhere('s.nom LIKE :nom')
+             ->setParameter('nom',"%{$filtre->getNom()}%")
+             ->getQuery()
+             ->getResult();
+
+     }
+
+     public function findBySite(Filtre $filtre)
+     {
+         return $this
+             ->createQueryBuilder('s')
+             ->andWhere('s.site IN (:site)')
+             ->setParameter('site',$filtre->getSite())
+             ->getQuery()
+             ->getResult();
+
+
+     }
+
+     public function findByDateHeureDebut(Filtre $filtre)
+     {
+         return $this
+             ->createQueryBuilder('s')
+             ->andWhere('s.dateHeureDebut >= :date')
+             ->setParameter('date', $filtre->getDateHeureDebut())
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function findByDateHeureFin(Filtre $filtre)
+     {
+         return $this
+             ->createQueryBuilder('s')
+             ->andWhere('s.dateHeureDebut <= :date')
+             ->setParameter('date', $filtre->getDateHeureFin())
+             ->getQuery()
+             ->getResult();
+
+     }
+
+     public function findByOrganisateur(Participant $participant)
+     {
+         return $this->createQueryBuilder('s')
+             ->andWhere('s.organisateur = :organisateur')
+             ->setParameter('organisateur', $participant)
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function findByInscrit(Participant $participant)
+     {
+         return $this->createQueryBuilder('s')
+             ->andWhere('s.participants = :participants')
+             ->setParameter('participants', $participant)
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function findByDatePassee()
+     {
+         return $this->createQueryBuilder('s')
+             ->andWhere('s.etat = 2')
+             ->getQuery()
+             ->getResult();
+     }*/
 
     public function findFiltre(Filtre $filtre, Participant $participant):Paginator{
         $query= $this
@@ -63,12 +148,12 @@ class SortieRepository extends ServiceEntityRepository
 
         }
         //fonctionnalité pas faite mais fonctionnel
-       /* if ($filtre->isInscrit()){
-            $query = $query
-                ->andWhere('s.participants = :participants')
-                ->setParameter('participants', $participant);
-        }*/
-        if ($filtre->isDatePassee()){
+        /* if ($filtre->isInscrit()){
+             $query = $query
+                 ->andWhere('s.participants = :participants')
+                 ->setParameter('participants', $participant);
+         }*/
+        if ($filtre->isDatePassee()) {
             $query = $query
                 ->andWhere('s.etat = 2');
         }
@@ -77,6 +162,15 @@ class SortieRepository extends ServiceEntityRepository
 
 
     }
+
+
+    public function findEnCoursCreation()
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.etat = 1')
+            ->getQuery()
+            ->getResult();
 
     /**
      * @throws \Exception
@@ -91,10 +185,6 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('valeur', '7')
             ->setParameter('valeur_condition', new \DateTime('-30 days'))
              ->getQuery()->execute();
-        /**/
-
-
-
-
+  
     }
 }

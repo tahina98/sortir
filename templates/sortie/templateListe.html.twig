@@ -26,6 +26,12 @@
                        style="color:darkred">
                         Se désister </a>
                 {% endif %}
+                {% if sortie.etat.statutNom == 'EN_CREATION'
+                    and  sortie.organisateur.pseudo == app.user.userIdentifier %}
+                    <a href="{{ path('sortie_publier', {'sortie':sortie.id}) }}"
+                       style="color:darkred">
+                        publier </a>
+                {% endif %}
                 {% for participant in sortie.participants %}
                     <p> {{ participant.pseudo }}</p>
                 {% endfor %}
