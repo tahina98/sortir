@@ -21,7 +21,11 @@
             <div>Lieu : {{sortie.lieu.nom}}</div>
             <div>{{sortie.lieu.rue}} {{sortie.lieu.ville.codePostal}} {{sortie.lieu.ville.nom}}</div>
 
-            <p class="text-xl mb-2">Participants :</p>
+            {% if sortie.participants is empty %}
+                <p class="text-xl mb-2">Aucun participant pour le moment</p>
+            {% else %}
+                <p class="text-xl mb-2">Participants :</p>
+            {% endif %}
             <ul>
                 {% for participant in sortie.participants | sort %}
                     {% if participant is same as (app.user) %}

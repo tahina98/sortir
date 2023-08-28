@@ -8,6 +8,8 @@ use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,10 +23,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
+
+    private const JOURS_ARCHIVE = 30;
+    const ARCHIVE = 5;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
     }
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
@@ -157,6 +163,7 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+
     public function findEnCoursCreation()
     {
         return $this
@@ -164,5 +171,20 @@ class SortieRepository extends ServiceEntityRepository
             ->andWhere('s.etat = 1')
             ->getQuery()
             ->getResult();
+
+    /**
+     * @throws \Exception
+     */
+    public function archivageSorties()
+    {
+         $this
+            ->createQueryBuilder('s')
+            ->update(Sortie::class, 's')
+            ->set('s.etat', ':valeur')
+            ->where('s.dateHeureDebut < :valeur_condition')
+            ->setParameter('valeur', '7')
+            ->setParameter('valeur_condition', new \DateTime('-30 days'))
+             ->getQuery()->execute();
+  
     }
 }

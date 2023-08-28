@@ -26,7 +26,9 @@ class SortieType extends AbstractType
                 'widget' => 'single_text'
             ))
             ->add('duree')
-            ->add('dateLimiteInscription')
+            ->add('dateLimiteInscription',DateTimeType::class, array(
+                'widget' => 'single_text'
+            ))
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
             ->add('site', EntityType::class, [
