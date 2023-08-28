@@ -27,29 +27,11 @@ class SuppressionType extends AbstractType
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'nom',
-                'expanded'  => true
-                //TODO mettre en liste déroulante
             ])
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
-                'expanded'  => true
             ])
-            ->add('etat', EntityType::class, [
-                'class' => Etat::class,
-                'choice_label' => 'libelle',
-            ])
-            //->add('participants', EntityType::class, [
-            //       'class' => Participant::class,
-            //       'choice_label' => 'pseudo'
-            //])
-            //TODO ajouter la liste de participants dans entité Sortie?
-            ->add('organisateur', EntityType::class, [
-                'class' => Participant::class,
-                'choice_label' => 'pseudo'
-            ])
-
-
         ;
     }
 

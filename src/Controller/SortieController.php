@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Form\FiltreType;
 use App\Form\SortieType;
 use App\Form\SuppressionType;
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use DateTime;
@@ -27,23 +28,30 @@ class SortieController extends AbstractController
     public function liste(SortieRepository $sortieRepository, Request $requete, ParticipantRepository $participantRepository): Response
     {
         //essaie n2
-        $filtre = new Filtre();
-        $filtreForm = $this->createForm(FiltreType::class, $filtre);
-        $filtreForm->handleRequest($requete);
-        $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
-        $sorties = $sortieRepository->findFiltre($filtre, $utilisateur);
-        return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
-
+        if ($this->getUser()) {
+            $filtre = new Filtre();
+            $filtreForm = $this->createForm(FiltreType::class, $filtre);
+            $filtreForm->handleRequest($requete);
+            $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
+            $sorties = $sortieRepository->findFiltre($filtre, $utilisateur);
+            return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
+        } else {
+            $sorties = $sortieRepository->findAll();
+            return $this->render('sortie/listeVisiteur.html.twig', compact('sorties'));
+        }
     }
 
     #[Route('/creation', name: '_creation')]
     public function creation(
         EntityManagerInterface $entityManager,
-        Request                $requete
+        Request                $requete,
+        EtatRepository         $etatRepository
     ): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
+        $etat = $etatRepository->findOneBy(['statutNom' => 'EN_CREATION']);
+        $sortie->setEtat($etat);
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($requete);
 
@@ -67,10 +75,11 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/modification/suppression/{id}', name: '_suppression')]
-    public function suppression(
+    #[Route('/modification/{id}', name: '_modification')]
+    public function modification(
         EntityManagerInterface $entityManager,
         SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
         Request                $requete,
         int                    $id
     ): Response
@@ -92,12 +101,28 @@ class SortieController extends AbstractController
                 $entityManager->persist($sortie);
                 $entityManager->flush();
             }
+            if ($clicked === 'annuler') {
+                $etat = $etatRepository->findOneBy(['statutNom' => 'ANNULE']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->redirectToRoute('sortie_liste');
+            }
+            if ($clicked === 'publier') {
+                $etat = $etatRepository->findOneBy(['statutNom' => 'OUVERT']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+            if ($clicked === 'retour') {
+                return $this->redirectToRoute('sortie_liste');
+            }
             return $this->redirectToRoute('sortie_liste');
         }
-        return $this->render('sortie/suppression.html.twig', compact('sortieForm', 'sortie'));
+        return $this->render('sortie/modification.html.twig', compact('sortieForm', 'sortie'));
     }
 
-        #[Route('/inscription/{sortie}', name: '_inscription')]
+    #[Route('/inscription/{sortie}', name: '_inscription')]
     public function inscription(
         Sortie                 $sortie,
         EntityManagerInterface $entityManager

@@ -6,8 +6,10 @@ use App\Repository\EtatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
+#[UniqueEntity(fields: ['statutNom'])]
 class Etat
 {
     #[ORM\Id]
@@ -20,6 +22,9 @@ class Etat
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
     private Collection $sorties;
+
+    #[ORM\Column(length: 25)]
+    private ?string $statutNom = null;
 
     public function __construct()
     {
@@ -69,6 +74,18 @@ class Etat
                 $sorty->setEtat(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatutNom(): ?string
+    {
+        return $this->statutNom;
+    }
+
+    public function setStatutNom(string $statutNom): static
+    {
+        $this->statutNom = $statutNom;
 
         return $this;
     }
