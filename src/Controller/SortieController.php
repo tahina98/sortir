@@ -61,7 +61,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/detail/{sortie}', name: '_detail')]
-    public function detail(SortieRepository $sortieRepository, Sortie $sortie): Response
+    public function detail(Sortie $sortie, EntityManagerInterface $em): Response
     {
         return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
