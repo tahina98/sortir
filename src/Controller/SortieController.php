@@ -217,4 +217,6 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_liste');
 
     }
+
+
 }

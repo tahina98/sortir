@@ -11,8 +11,13 @@
                     <p>Inscriptions : {{ sortie.participants.count }}
                         / {{ sortie.nbInscriptionsMax }}</p>
                     <p>{{ sortie.etat.libelle }}</p>
+
+                </a>
+                    <a href="{{ path('profilParticipant', {'participant': sortie.organisateur.id}) }}">Organisé par {{ sortie.organisateur.pseudo }}</a>
+
                     <p>Organisé par {{ sortie.organisateur.pseudo }}</p><br>
                 </a>
+
 
                 {% if sortie.etat.statutNom == 'OUVERT'
                     and sortie.dateLimiteInscription > "now"
@@ -49,7 +54,7 @@
                         Supprimer</a>
                 {% endif %}
                 {% for participant in sortie.participants %}
-                    <p> {{ participant.pseudo }}</p>
+                    <a href="{{ path('profilParticipant', {'participant': participant.id}) }}> {{ participant.pseudo }}</a>
                 {% endfor %}
             </div>
             <div class="px-6 pt-4 pb-2">
