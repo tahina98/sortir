@@ -39,6 +39,61 @@ class SortieController extends AbstractController
         }
     }
 
+    #[Route('/listeapublier', name: '_liste_a_publier')]
+    public function liste_a_publier(SortieRepository $sortieRepository): Response
+    {
+        $sorties = $sortieRepository->findEnCoursCreation();
+        return $this->render('sortie/listeEnCoursCreation.html.twig', compact('sorties'));
+    }
+
+    #[Route('/publication/{sortie}', name: '_publier')]
+    public function publier(
+        EntityManagerInterface $entityManager,
+        SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
+        Request                $requete,
+        Sortie                 $sortie
+    ): Response
+    {
+        $sortie = $sortieRepository->find($sortie->getId());
+        $etat = $etatRepository->findOneBy(['statutNom' => 'OUVERT']);
+        $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute('sortie_liste');
+    }
+
+    #[Route('/annulation/{sortie}', name: '_annuler')]
+    public function annuler(
+        EntityManagerInterface $entityManager,
+        EtatRepository         $etatRepository,
+        Sortie                 $sortie
+    ): Response
+    {
+        $etat = $etatRepository->findOneBy(['statutNom' => 'ANNULE']);
+        $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute('sortie_liste');
+    }
+
+    #[Route('/suppression/{sortie}', name: '_supprimer')]
+    public function supprimer(
+        EntityManagerInterface $entityManager,
+        EtatRepository         $etatRepository,
+        Sortie                 $sortie
+    ): Response
+    {
+
+        $etat = $etatRepository->findOneBy(['statutNom' => 'ARCHIVE']);
+        $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute('sortie_liste');
+    }
+
+
+
     #[Route('/creation', name: '_creation')]
     public function creation(
         EntityManagerInterface $entityManager,
@@ -151,13 +206,11 @@ class SortieController extends AbstractController
     {
 
 
-
-        if($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()){
-            $sortie->removeParticipant($this->getUser());
-            $etat = $etatRepository->find(2);
+        if ($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()) {
+            $etat = $etatRepository->findOneBy(['statutNom' => 'OUVERT']);
             $sortie->setEtat($etat);
-
         }
+        $sortie->removeParticipant($this->getUser());
         $entityManager->persist($sortie);
         $entityManager->flush();
 

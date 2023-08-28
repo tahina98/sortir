@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Filtre;
 use App\Entity\Participant;
 use App\Entity\Site;
@@ -31,10 +32,8 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-
-    public function findFiltre(Filtre $filtre, Participant $participant): Paginator
-    {
-        $query = $this
+    public function findFiltre(Filtre $filtre, Participant $participant):Paginator{
+        $query= $this
             ->createQueryBuilder('s');
         if (!empty($filtre->getNom())) {
             $query = $query
@@ -80,6 +79,16 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+
+    public function findEnCoursCreation()
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.etat = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * @throws \Exception
      */
@@ -93,22 +102,8 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('valeur', '7')
             ->setParameter('valeur_condition', new \DateTime('-30 days'))
             ->getQuery()->execute();
-        /**/
-
-
+       
     }
 
-    public function findByParticipant(Participant $participant)
-    {
 
-
-        $queryBuilder = $this->createQueryBuilder('s')
-            ->select('p')
-            ->from('App\Entity\Sortie', 's')
-            ->join('s.participant', 'p')
-            ->andWhere(':participantId MEMBER OF s.participant')
-            ->setParameter('participantId', $participant)
-            ->getQuery()->getResult();
-
-    }
 }

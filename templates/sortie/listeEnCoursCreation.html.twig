@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
+        {% for sortie in sorties %}
+            {% if sortie.etat.statutNom == 'EN_CREATION'
+                and  sortie.organisateur.pseudo == app.user.userIdentifier %}
+                {% include 'sortie/templateListe.html.twig' %}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
