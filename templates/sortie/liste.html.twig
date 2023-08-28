@@ -77,7 +77,8 @@
                     %}
                         <a href="{{ path('sortie_inscription', {'sortie': sortie.id}) }}"> S'inscrire </a>
                     {% endif %}
-                    {% if sortie.etat.id == '2'
+                    {% if (sortie.etat.id == '2'
+                        or sortie.etat.id == '4')
                         and sortie.dateLimiteInscription > "now"
                         and app.user in sortie.participants
                     %}
