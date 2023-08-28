@@ -7,6 +7,8 @@ use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,94 +22,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
+
+    private const JOURS_ARCHIVE = 30;
+    const ARCHIVE = 5;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-    /*public function findBySite($value): array
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.site = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }*/
-
-   /* public function findByNom(Filtre $filtre)
-    {
-        return $this->createQueryBuilder('s')
-            ->select('s')
-            ->andWhere('s.nom LIKE :nom')
-            ->setParameter('nom',"%{$filtre->getNom()}%")
-            ->getQuery()
-            ->getResult();
-
-    }
-
-    public function findBySite(Filtre $filtre)
-    {
-        return $this
-            ->createQueryBuilder('s')
-            ->andWhere('s.site IN (:site)')
-            ->setParameter('site',$filtre->getSite())
-            ->getQuery()
-            ->getResult();
-
-
-    }
-
-    public function findByDateHeureDebut(Filtre $filtre)
-    {
-        return $this
-            ->createQueryBuilder('s')
-            ->andWhere('s.dateHeureDebut >= :date')
-            ->setParameter('date', $filtre->getDateHeureDebut())
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByDateHeureFin(Filtre $filtre)
-    {
-        return $this
-            ->createQueryBuilder('s')
-            ->andWhere('s.dateHeureDebut <= :date')
-            ->setParameter('date', $filtre->getDateHeureFin())
-            ->getQuery()
-            ->getResult();
-
-    }
-
-    public function findByOrganisateur(Participant $participant)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.organisateur = :organisateur')
-            ->setParameter('organisateur', $participant)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByInscrit(Participant $participant)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.participants = :participants')
-            ->setParameter('participants', $participant)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByDatePassee()
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.etat = 2')
-            ->getQuery()
-            ->getResult();
-    }*/
 
     public function findFiltre(Filtre $filtre, Participant $participant):Paginator{
         $query= $this
@@ -152,6 +74,26 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         return new Paginator($query);
+
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function archivageSorties()
+    {
+         $this
+            ->createQueryBuilder('s')
+            ->update(Sortie::class, 's')
+            ->set('s.etat', ':valeur')
+            ->where('s.dateHeureDebut < :valeur_condition')
+            ->setParameter('valeur', '5')
+            ->setParameter('valeur_condition', new \DateTime('-30 days'))
+             ->getQuery()->execute();
+        /**/
+
+
 
 
     }
