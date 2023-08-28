@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -43,15 +44,18 @@ class RegistrationFormType extends AbstractType
                 'first_options' => [ 'label' => 'Mot de passe : ',
                     'hash_property_path' =>'password'
                 ],
-                'second_options' => [ 'label' => 'Confirmez le mot de passe',
-                    'hash_property_path' =>'password'
+                'second_options' => ['label' => 'Confirmez le mot de passe',
+                    'hash_property_path' => 'password'
 
 
                 ],
                 'mapped' => false,
-                'constraints' =>[
-                    new Regex('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/','Merci de respecter le format du mot de passe')
+                'constraints' => [
+                    new Regex('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', 'Merci de respecter le format du mot de passe')
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
             ])
             ->add('save', SubmitType::class,[
                 'attr'=>[
