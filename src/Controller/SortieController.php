@@ -10,13 +10,11 @@ use App\Form\SuppressionType;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function Symfony\Component\Clock\now;
 
 #[Route('/sorties', name: 'sortie')]
 class SortieController extends AbstractController
@@ -69,7 +67,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/detail/{sortie}', name: '_detail')]
-    public function detail(SortieRepository $sortieRepository, Sortie $sortie): Response
+    public function detail(Sortie $sortie): Response
     {
         return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
@@ -125,13 +123,20 @@ class SortieController extends AbstractController
     #[Route('/inscription/{sortie}', name: '_inscription')]
     public function inscription(
         Sortie                 $sortie,
+        EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
-
         $sortie->addParticipant($this->getUser());
+
+        if($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()){
+            $etat = $etatRepository->find(4);
+            $sortie->setEtat($etat);
+        }
+
         $entityManager->persist($sortie);
         $entityManager->flush();
+
 
         return $this->redirectToRoute('sortie_liste');
     }
@@ -140,11 +145,19 @@ class SortieController extends AbstractController
     #[Route('/desistement/{sortie}', name: '_desistement')]
     public function desistement(
         Sortie                 $sortie,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository
     ): Response
     {
 
-        $sortie->removeParticipant($this->getUser());
+
+
+        if($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()){
+            $sortie->removeParticipant($this->getUser());
+            $etat = $etatRepository->find(2);
+            $sortie->setEtat($etat);
+
+        }
         $entityManager->persist($sortie);
         $entityManager->flush();
 

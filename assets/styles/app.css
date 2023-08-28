@@ -1,6 +1,43 @@
+@charset "UTF-8";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.navBarSortir {
+  background-color: #5CAFE7;
+  margin-bottom: 40px;
+}
+
+.nomId {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.liste {
+  color: #FF679D;
+}
+
+.connecté {
+  color: #FF679D;
+}
+
+.ulNav {
+  background-color: #5CAFE7;
+}
+
+.imgNav {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.espace {
+  margin-top: 160px;
+}
+
+.titre {
+  @apply btn btn-ghost normal-case text-xl;
+}
+
 .tw {
   @apply chat chat-start chat-end chat-bubble;
 }
@@ -38,19 +75,28 @@ a {
 }
 
 .chatcss {
-  background-color: #e1e8f6;
+  background-color: #5CAFE7;
   border-radius: 10px;
   margin-left: 10px;
   width: 600px;
   padding: 20px;
+  margin-top: 70px;
+}
+
+.chat-bubble {
+  background-color: white;
+  color: #5CAFE7;
+  font-weight: bold;
 }
 
 .presentation {
-  background-color: #e1e8f6;
+  background-color: #5CAFE7;
   margin-left: 620px;
   margin-right: 10px;
   border-radius: 10px;
   padding: 20px;
+  color: white;
+  margin-top: 70px;
 }
 
 .imgIndex {
@@ -111,6 +157,89 @@ a {
 
 #site input {
   margin-top: 7px;
+}
+
+.bienvenue {
+  text-align: center;
+}
+
+.sortirTitre {
+  color: black;
+}
+
+.slogan {
+  text-align: center;
+}
+
+.contenuPage {
+  position: relative;
+  min-height: 100vh;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.footer {
+  background-color: #5CAFE7;
+}
+
+.textFooter {
+  color: white;
+}
+
+.texteRose {
+  color: #FF679D;
+}
+
+.texteNoir {
+  color: black;
+}
+
+.contenuImg {
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.imageIndex {
+  border-radius: 50px;
+  margin-top: 40px;
+}
+
+.presIphone {
+  display: flex;
+  margin-top: 60px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.descriptionMobile {
+  align-self: center;
+  background-color: #5CAFE7;
+  border-radius: 10px;
+  color: white;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  margin-left: 300px;
+}
+
+.descriptionMobile p {
+  text-align: center;
+}
+
+.textFin {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.boutonFin {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=app.css.map */

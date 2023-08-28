@@ -22,7 +22,9 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateHeureDebut')
+            ->add('dateHeureDebut', DateTimeType::class, array(
+                'widget' => 'single_text'
+            ))
             ->add('duree')
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')

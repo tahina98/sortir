@@ -7,7 +7,8 @@
 {% block body %}
 
 
-    <h1 class="titre">Bienvenue !</h1>
+    <h1 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Bienvenue !</h1>
+    <p class="slogan mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Sortir.com vous propose une solution efficace et rapide pour vous divertir dans votre région.<br> Connectez-vous, créez et participez à des sorties endiablées.</p>
 
     <div class="my-10 chatcss">
     <div class="chat chat-start  border-solid ">
@@ -38,21 +39,37 @@
             suscipit temporibus, veniam?
         </div>
     </div>
+    <div class="contenuImg">
 
-<div class="icones">
-    <div class="divIcones">
-        <a href="{{ path('sortie_liste') }}" class="fa-solid fa-list fa-2xl"> </a>
+        <img class="imageIndex h-auto max-w-full" src="https://www.loopearplugs.com/cdn/shop/articles/applause-audience-band-167636.jpg?v=1633532488" alt="image description">
 
-
-        <p>Sorties</p>
     </div>
-    <div class="divIcones">
-    <i class="fa-solid fa-user fa-2xl"></i>
-        <p>Se Connecter</p>
-    </div>
-        <div class="divIcones">
-    <i class="fa-solid fa-user-plus fa-2xl"></i>
-            <p>S'inscrire</p>
-        </div>
+
+    <h2 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Connectez-vous !</h2>
+    <div class="presIphone">
+<div class="descriptionMobile">
+    <p>Ne perdes plus de temps téléchargez l'application et commencer votre nouvelle vie.<br>
+    Rencontrez de nouvelles personnes et faites vous de nouveaux amis.<br>
+    Trouvez de nouveaux centres d'intérêt.<br>
+    Amusez-vous !</p>
 </div>
+    <div class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
+        <div class="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
+        <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+        <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
+        <div class="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+        <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
+            <img src="https://e0.pxfuel.com/wallpapers/565/957/desktop-wallpaper-rock-party-music-concert-dance-hands-party-iphone.jpg" class="dark:hidden w-[272px] h-[572px]" alt="">
+            <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/mockup-1-dark.png" class="hidden dark:block w-[272px] h-[572px]" alt="">
+        </div>
+    </div>
+
+    </div>
+
+    <p class="textFin mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">On vous attends dans toutes les meilleures sorties proche de chez vous !<br>
+    A bienôt !</p>
+    <div class="boutonFin">
+    <a href="{{ path('app_register') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">S'inscrire<a>
+    </div>
+
 {% endblock %}
