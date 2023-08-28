@@ -21,6 +21,7 @@
             <div>Lieu : {{sortie.lieu.nom}}</div>
             <div>{{sortie.lieu.rue}} {{sortie.lieu.ville.codePostal}} {{sortie.lieu.ville.nom}}</div>
 
+
             {% if sortie.participants is empty %}
                 <p class="text-xl mb-2">Aucun participant pour le moment</p>
             {% else %}
@@ -43,6 +44,8 @@
 
                 {% endfor %}
             </ul>
+
+            <a href="{{ path('sortie_modification', {'id':sortie.id} ) }}">Modifier</a>
 
 
         </div>
