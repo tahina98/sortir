@@ -19,7 +19,7 @@ class Sortie
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le champ nom ne doit pas être vide')]
-    #[Assert\Regex('/^[a-zA-Z0-9_-]{3,35}$/', message: 'le nom ne peut contenir plus de 35 caractères(lettre ou chiffres')]
+    #[Assert\Regex('/^[a-zA-Z0-9\s]{3,35}$/', message: 'le nom ne peut contenir plus de 35 caractères(lettre ou chiffres')]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
