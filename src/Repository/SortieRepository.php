@@ -88,7 +88,7 @@ class SortieRepository extends ServiceEntityRepository
             ->update(Sortie::class, 's')
             ->set('s.etat', ':valeur')
             ->where('s.dateHeureDebut < :valeur_condition')
-            ->setParameter('valeur', '5')
+            ->setParameter('valeur', '7')
             ->setParameter('valeur_condition', new \DateTime('-30 days'))
              ->getQuery()->execute();
         /**/
