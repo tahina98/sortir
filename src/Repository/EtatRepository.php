@@ -36,13 +36,13 @@ class EtatRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Etat
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneBylibelle($value): ?Etat
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.libelle = :4')
+            ->setParameter('4', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
