@@ -8,6 +8,8 @@ use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,25 +36,15 @@ class FiltreType extends AbstractType
                     'placeholder' => 'Rechercher'
                 )
             ])
-            ->add('dateHeureDebut', DateType::class, [
-                'widget' => 'choice',
-                'input'  => 'datetime_immutable',
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'mois', 'day' => 'jour',
-                ],
-                'required'=>false,
-                'format' => 'dd MM yyyy',
-
-            ])
-            ->add('dateHeureFin', DateType::class, [
-                'widget' => 'choice',
-                'input'  => 'datetime_immutable',
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'mois', 'day' => 'jour',
-                ],
-                'required'=>false,
-                'format' => 'dd MM yyyy',
-            ])
+            ->add('dateHeureDebut', DateTimeType::class, array(
+                'widget' => 'single_text',
+                    'required'=>false
+                )
+            )
+            ->add('dateHeureFin', DateTimeType::class, array(
+                'widget' => 'single_text',
+                'required'=>false
+                ))
             ->add('organisateur', CheckboxType::class, [
                 'mapped' => true,
                 'required' => false
