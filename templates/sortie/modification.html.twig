@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(sortieForm) }}
+    {{ form_widget(sortieForm) }}
+    {% if sortie.etat.statutNom == 'EN_CREATION' %}
+        <button name="clicked" value="supprimer" type="submit">supprimer</button>
+        <button name="clicked" value="publier" type="submit">publier</button>
+        <button name="clicked" value="modifier" type="submit">modifier</button>
+    {% endif %}
+    {% if sortie.etat.statutNom == 'OUVERT'
+        and sortie.dateHeureDebut > "now" %}
+        <button name="clicked" value="annuler" type="submit">annuler</button>
+        {{ form_end(sortieForm) }}
+    {% endif %}
+    <button name="clicked" value="retour" type="submit">retour</button>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
