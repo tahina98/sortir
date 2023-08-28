@@ -70,8 +70,7 @@
             {% if sortie.etat.statutNom == 'OUVERT'
                 or sortie.etat.statutNom == 'CLOTURE'
                 or sortie.etat.statutNom == 'EN_COURS'
-                or sortie.etat.statutNom == 'PASSE'
-                or sortie.etat.statutNom == 'ARCHIVE' %}
+                or sortie.etat.statutNom == 'PASSE' %}
                 {% include 'sortie/templateListe.html.twig' %}
             {% endif %}
         {% endfor %}
