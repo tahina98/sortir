@@ -14,10 +14,11 @@
     </div>
 
 <h2  class=" participe text-4xl font-extrabold dark:text-white">Participe à :</h2>
-
+<div class="conteneur grid grid-cols-4 gap-4">
         {% for sortie in participant.sorties %}
             {% include 'sortie/templateListe.html.twig' %}
         {% endfor %}
+</div>
 
 
 {% endblock %}
