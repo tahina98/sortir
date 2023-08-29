@@ -31,13 +31,13 @@
                 {% for participant in sortie.participants | sort %}
                     {% if participant is same as (app.user) %}
                         <li>
-                            <img src="" alt="Image de profil">
+                            <img src="{{ asset('images/participants/'~app.user.imageName) }}" alt="Photo de profil">
                             <p>Vous</p>
                         </li>
                     {% endif %}
                     {% if participant is not same as(app.user) %}
                         <li>
-                            <img src="" alt="Image de profil">
+                            <img src="{{ asset('images/participants/'~participant.imageName) }}" alt="Photo de profil">
                             <a href="{{ path('profilParticipant', {'participant': participant.id}) }}">
                                 <p>{{ participant.pseudo }}</p>
                             </a>

@@ -368,4 +368,44 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __serialize()
+    {
+        return [
+            'id' => $this->id,
+            "imageName" => $this->imageName,
+            'imageSize'=>$this->imageSize,
+            'updatedAt'=>$this->updatedAt,
+            'pseudo'=>$this->pseudo,
+            'role'=>$this->roles,
+            'password'=>$this->password,
+            'nom'=>$this->nom,
+            'prenom'=>$this->prenom,
+            'telephone'=>$this->telephone,
+            'mail'=>$this->mail,
+            'actif'=>$this->actif,
+            'site'=>$this->site,
+            'sortiesOrganisees'=>$this->sortiesOrganisees,
+            'sorties'=>$this->sorties
+        ];
+    }
+
+    public function __unserialize(array $data)
+    {
+        $this->id = $data['id'];
+        $this->imageName = $data['imageName'];
+        $this->imageSize = $data['imageSize'];
+        $this->updatedAt = $data['updatedAt'];
+        $this->pseudo = $data['pseudo'];
+        $this->roles = $data['role'];
+        $this->password = $data['password'];
+        $this->nom = $data['nom'];
+        $this->prenom = $data['prenom'];
+        $this->telephone = $data['telephone'];
+        $this->mail = $data['mail'];
+        $this->actif = $data['actif'];
+        $this->site = $data['site'];
+        $this->sortiesOrganisees = $data['sortiesOrganisees'];
+        $this->sorties = $data['sorties'];
+    }
 }
