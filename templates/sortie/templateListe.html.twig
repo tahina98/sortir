@@ -5,7 +5,10 @@
                 <a href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
                     <div class="font-bold text-xl mb-2"><h2>{{ sortie.nom }}</h2></div>
                     <p class="text-gray-700 text-base">
-                        {{ sortie.dateHeureDebut|format_datetime(locale='fr') }}</p>
+                        <i class="fa-solid fa-map-pin"></i> {{ sortie.lieu.nom }}
+                    </p>
+                    <p class="text-gray-700 text-base">
+                        {{ sortie.dateHeureDebut|format_datetime('relative_medium', locale='fr') }}</p>
                     <p class="text-gray-700 text-xs">
                         {{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
                     <p>Inscriptions : {{ sortie.participants.count }}

@@ -38,7 +38,9 @@
                     {% if participant is not same as(app.user) %}
                         <li>
                             <img src="" alt="Image de profil">
-                            <p>{{ participant.pseudo }}</p>
+                            <a href="{{ path('profilParticipant', {'participant': participant.id}) }}">
+                                <p>{{ participant.pseudo }}</p>
+                            </a>
                         </li>
                     {% endif %}
 
