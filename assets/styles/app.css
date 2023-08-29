@@ -45,6 +45,8 @@
 .container {
   display: flex;
   justify-content: center;
+  width: 100vw;
+  text-align: center;
   @apply mb-2 mt-2;
 }
 
@@ -240,6 +242,19 @@ footer {
   margin-top: 60px;
   display: flex;
   justify-content: center;
+}
+
+.pro {
+  margin-bottom: 80px;
+}
+
+.profilParticipant {
+  margin-bottom: 80px;
+}
+
+.participe {
+  text-align: center;
+  margin-bottom: 80px;
 }
 
 /*# sourceMappingURL=app.css.map */

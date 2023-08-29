@@ -26,6 +26,7 @@ class SortieRepository extends ServiceEntityRepository
 
     private const JOURS_ARCHIVE = 30;
     const ARCHIVE = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
@@ -34,28 +35,28 @@ class SortieRepository extends ServiceEntityRepository
     public function findFiltre(Filtre $filtre, Participant $participant):Paginator{
         $query= $this
             ->createQueryBuilder('s');
-        if (!empty($filtre->getNom())){
+        if (!empty($filtre->getNom())) {
             $query = $query
                 ->andWhere('s.nom LIKE :nom')
-                ->setParameter('nom',"%{$filtre->getNom()}%");
+                ->setParameter('nom', "%{$filtre->getNom()}%");
         }
-        if (!empty($filtre->getSite())){
+        if (!empty($filtre->getSite())) {
             $query = $query
                 ->andWhere('s.site IN (:site)')
-                ->setParameter('site',$filtre->getSite());
+                ->setParameter('site', $filtre->getSite());
         }
-        if (!empty($filtre->getDateHeureDebut())){
+        if (!empty($filtre->getDateHeureDebut())) {
             $query = $query
                 ->andWhere('s.dateHeureDebut >= :date')
                 ->setParameter('date', $filtre->getDateHeureDebut());
         }
-        if (!empty($filtre->getDateHeureFin())){
+        if (!empty($filtre->getDateHeureFin())) {
             $query = $query
                 ->andWhere('s.dateHeureDebut <= :date')
                 ->setParameter('date', $filtre->getDateHeureFin());
         }
 
-        if ($filtre->isOrganisateur()){
+        if ($filtre->isOrganisateur()) {
 
             $query = $query
                 ->andWhere('s.organisateur = :organisateur')
@@ -93,14 +94,16 @@ class SortieRepository extends ServiceEntityRepository
      */
     public function archivageSorties()
     {
-         $this
+        $this
             ->createQueryBuilder('s')
             ->update(Sortie::class, 's')
             ->set('s.etat', ':valeur')
             ->where('s.dateHeureDebut < :valeur_condition')
             ->setParameter('valeur', '7')
             ->setParameter('valeur_condition', new \DateTime('-30 days'))
-             ->getQuery()->execute();
-  
+            ->getQuery()->execute();
+       
     }
+
+
 }

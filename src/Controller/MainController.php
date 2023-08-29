@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ProfilType;
+use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormTypeInterface;
@@ -33,20 +35,59 @@ class MainController extends AbstractController
     #[IsGranted('ROLE_USER', message: 'Vous devez être connecté pour accéder à cette page')]
     public function modifProfil(
         EntityManagerInterface $em,
-        Request $requete
+        Request                $requete
     ): Response
     {
         $participant = $this->getUser();
-        $participantForm =  $this->createForm(ProfilType::class, $participant);
+        $participantForm = $this->createForm(ProfilType::class, $participant);
         $participantForm->handleRequest($requete);
 
-        if($participantForm->isSubmitted() && $participantForm->isValid()){
+        if ($participantForm->isSubmitted() && $participantForm->isValid()) {
             $em->persist($participant);
             $em->flush();
             return $this->redirectToRoute('main_profil');
         }
         return $this->render('main/modifProfil.html.twig', [
-            'participantForm'=>$participantForm->createView()
+            'participantForm' => $participantForm->createView()
         ]);
     }
+
+    #[Route('/profilParticipant/{participant}', name: 'profilParticipant')]
+    public function profilParticipant(
+        Participant $participant,
+        SortieRepository $sortieRepository
+    ): Response
+    {
+
+        return $this->render('main/profilParticipant.html.twig',
+            compact('participant'));
+    }
+
+    #[Route('/aboutUs', name: 'aboutUs')]
+    public function aboutUs(
+
+    ): Response
+    {
+
+        return $this->render('main/aboutUs.html.twig');
+    }
+
+    #[Route('/contact', name: 'contact')]
+    public function contact(
+
+    ): Response
+    {
+
+        return $this->render('main/contact.html.twig');
+    }
+
+    #[Route('/privacy', name: 'privacy')]
+    public function privacy(
+
+    ): Response
+    {
+
+        return $this->render('main/privacy.html.twig');
+    }
+
 }

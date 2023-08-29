@@ -11,31 +11,49 @@
                     <p>Inscriptions : {{ sortie.participants.count }}
                         / {{ sortie.nbInscriptionsMax }}</p>
                     <p>{{ sortie.etat.libelle }}</p>
-                    <p>Organisé par {{ sortie.organisateur.pseudo }}</p>
+
                 </a>
+                    <a href="{{ path('profilParticipant', {'participant': sortie.organisateur.id}) }}">Organisé par {{ sortie.organisateur.pseudo }}</a>
+                </a>
+
+
                 {% if sortie.etat.statutNom == 'OUVERT'
                     and sortie.dateLimiteInscription > "now"
                     and sortie.nbInscriptionsMax > sortie.participants.count
                     and app.user not in sortie.participants %}
                     <a href="{{ path('sortie_inscription', {'sortie': sortie.id}) }}"> S'inscrire </a>
                 {% endif %}
+
                 {% if sortie.etat.statutNom == 'OUVERT'
                     and sortie.dateLimiteInscription > "now"
-                    and app.user in sortie.participants %}
+                    and app.user in sortie.participants%}
+
                     <a href="{{ path('sortie_desistement', {'sortie': sortie.id}) }}"
                        style="color:darkred">
                         Se désister </a>
+
                 {% endif %}
+
+                {% if sortie.etat.statutNom == 'OUVERT'
+                    and sortie.organisateur.pseudo == app.user.userIdentifier
+                    and sortie.dateLimiteInscription > "now" %}
+                    <a href="{{ path('sortie_annuler', {'sortie': sortie.id}) }}"
+                       style="color:darkred">
+                        Annuler </a>
+                {% endif %}
+
                 {% if sortie.etat.statutNom == 'EN_CREATION'
                     and  sortie.organisateur.pseudo == app.user.userIdentifier %}
                     <a href="{{ path('sortie_publier', {'sortie':sortie.id}) }}"
-                       style="color:darkred">
-                        publier </a>
+                       style="color:#3a8b00">
+                        Publier </a>
+                    <a href="{{ path('sortie_supprimer', {'sortie':sortie.id}) }}"
+                    style="color:darkred">
+                        Supprimer</a>
                 {% endif %}
                 {% for participant in sortie.participants %}
-                    <p> {{ participant.pseudo }}</p>
+                    <a href="{{ path('profilParticipant', {'participant': participant.id}) }}> {{ participant.pseudo }}</a>
                 {% endfor %}
-
             </div>
             <div class="px-6 pt-4 pb-2">
                 <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
