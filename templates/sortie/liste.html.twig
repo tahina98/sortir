@@ -8,58 +8,8 @@
 
 
 
-   {# <form class="rechercheFiltree" method="post">
-        <div class="rechercheFiltre">
-            {{ form_widget(filtreForm.nom) }}
-        </div>
-        <div class="siteFiltre">
-            <p>Site :</p>
-            <div class="widgetSiteFiltre">
-                {{ form_widget(filtreForm.site) }}
-            </div>
-        </div>
-        <div class="debutFiltre">
-            <p>Du : </p>
-            <div class="debutWidgetFiltre">
-                {{ form_widget(filtreForm.dateHeureDebut) }}
-            </div>
-        </div>
-        <div class="finFiltre">
-            <p>Au : </p>
-            <div class="finWidgetFiltre">
-                {{ form_widget(filtreForm.dateHeureFin) }}
-            </div>
-        </div>
-        <div class="organisateur">
-            <p>Dont je suis l'organisateur :</p>
-            {{ form_widget(filtreForm.organisateur) }}
-        </div>
 
-        #}{#
-        <div class="inscrit">
-            <p>Sorties auxquelles je suis inscrit :</p>
-            {{ form_widget(filtreForm.inscrit) }}
-        </div>
-
-        <div class="non_inscrit">
-            <p>Sorties auxquelles je suis inscrit :</p>
-            {{ form_widget(filtreForm.inscrit) }}
-        </div>
-        #}{#
-
-        <div class="datePassee">
-            <p>Sorties passées :</p>
-            {{ form_widget(filtreForm.datePassee) }}
-        </div>
-
-        <div class="submit">
-            {{ form_widget(filtreForm.submit) }}
-        </div>
-    </form>#}
-
-    <a href="{{ path('sortie_creation') }}">Créer une sortie</a>
-
-    <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
+    <div class="conteneur grid grid-cols-4 gap-4">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom == 'EN_CREATION'
                 and  sortie.organisateur.pseudo == app.user.userIdentifier %}
@@ -69,7 +19,7 @@
 
     </div>
 
-    <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
+    <div class="conteneur grid grid-cols-4 gap-4">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom == 'OUVERT'
                 or sortie.etat.statutNom == 'CLOTURE'
@@ -78,5 +28,9 @@
                 {% include 'sortie/templateListe.html.twig' %}
             {% endif %}
         {% endfor %}
+    </div>
+
+    <div class="flex justify-center m-10">
+    <a href="{{ path('sortie_creation') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Créer une sortie</a>
     </div>
 {% endblock %}

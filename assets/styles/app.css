@@ -45,7 +45,7 @@
 .container {
   display: flex;
   justify-content: center;
-  width: 100px;
+  width: 100vw;
   text-align: center;
   @apply mb-2 mt-2;
 }
@@ -198,6 +198,14 @@ footer {
 
 .texteNoir {
   color: black;
+}
+
+.texteJaune {
+  color: #FFE361;
+}
+
+.texteBleu {
+  color: #5CAFE7;
 }
 
 .contenuImg {
