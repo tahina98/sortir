@@ -30,13 +30,23 @@ class SortieController extends AbstractController
             $filtre = new Filtre();
             $filtreForm = $this->createForm(FiltreType::class, $filtre);
             $filtreForm->handleRequest($requete);
+
             $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
-            $sorties = $sortieRepository->findFiltre($filtre, $utilisateur);
+            if ($filtreForm->isSubmitted()) {
+                $sorties = $sortieRepository->findFiltre($filtre, $utilisateur);
+                return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
+
+
+            }
+            $sorties = $sortieRepository->findAll();
             return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
+
+
         } else {
             $sorties = $sortieRepository->findAll();
             return $this->render('sortie/listeVisiteur.html.twig', compact('sorties'));
         }
+
     }
 
     #[Route('/listeapublier', name: '_liste_a_publier')]
@@ -91,7 +101,6 @@ class SortieController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('sortie_liste');
     }
-
 
 
     #[Route('/creation', name: '_creation')]
@@ -178,13 +187,13 @@ class SortieController extends AbstractController
     #[Route('/inscription/{sortie}', name: '_inscription')]
     public function inscription(
         Sortie                 $sortie,
-        EtatRepository $etatRepository,
+        EtatRepository         $etatRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
         $sortie->addParticipant($this->getUser());
 
-        if($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()){
+        if ($sortie->getParticipants()->count() === $sortie->getNbInscriptionsMax()) {
             $etat = $etatRepository->find(4);
             $sortie->setEtat($etat);
         }
@@ -201,7 +210,7 @@ class SortieController extends AbstractController
     public function desistement(
         Sortie                 $sortie,
         EntityManagerInterface $entityManager,
-        EtatRepository $etatRepository
+        EtatRepository         $etatRepository
     ): Response
     {
 
