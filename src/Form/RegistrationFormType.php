@@ -57,7 +57,7 @@ class RegistrationFormType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
             ])
-            ->add('save', SubmitType::class,[
+            ->add('inscription', SubmitType::class,[
                 'attr'=>[
                     'type'=>'button'
                 ]

@@ -51,15 +51,31 @@
 }
 
 form {
-  @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+  @apply flex flex-col items-center bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+}
+
+form label {
+  @apply self-start mt-2;
 }
 
 label {
   @apply block text-gray-700 text-sm font-bold mb-2;
 }
 
-button {
-  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+#registration_form_inscription {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
+}
+
+#profil_save {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
+}
+
+#sortie_creer {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
+}
+
+.modification {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
 }
 
 .radio {
@@ -250,10 +266,6 @@ footer {
   margin-top: 60px;
   display: flex;
   justify-content: center;
-}
-
-.pro {
-  margin-bottom: 80px;
 }
 
 .profilParticipant {

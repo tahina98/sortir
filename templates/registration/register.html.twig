@@ -4,8 +4,8 @@
 
 {% block body %}
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
-    <div class="container">
-    <div class="w-full max-w-sm">
+    <h1 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Inscrivez-vous !</h1>
+    <div class="flex justify-center m-10">
 
      {{ form_errors(registrationForm) }}
     {{ form_start(registrationForm) }}
@@ -40,8 +40,8 @@
 
     <h2>Au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</h2>
 
-    <button type="submit" class="btn">Register</button>
+
     {{ form_end(registrationForm) }}
     </div>
-    </div>
+
 {% endblock %}

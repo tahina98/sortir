@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="bienvenue pro mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{ participant.pseudo }}
-        :</h1>
+
 
     <div class="profilParticipant  flex flex-col items-center ">
-
+        <img class="w-80 h-80 rounded-full" src="{{ asset('images/participants/'~participant.imageName) }}" alt="Photo de profil">
+        <h1 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{ participant.pseudo }} :</h1>
         <p class="text-xl"><span class="font-bold">Nom : </span>{{ participant.nom }}</p>
         <p class="text-xl"><span class="font-bold">prénom : </span>{{ participant.prenom }}</p>
         <p class="text-xl"><span class="font-bold">Site : </span>{{ participant.site.nom }}</p>

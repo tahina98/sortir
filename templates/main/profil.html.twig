@@ -1,32 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h2>Nom</h2>
-    <img src="{{ asset('images/participants/'~app.user.imageName) }}" alt="Photo de profil">
-    <p>{{ app.user.nom }}</p>
-    <h2>Prénom</h2>
-    <p>{{ app.user.prenom }}</p>
-    <h2>Pseudo</h2>
-    <p>{{ app.user.pseudo }}</p>
-    <h2>Mail</h2>
-    <p>{{ app.user.mail }}</p>
-    <h2>Téléphone</h2>
-    <p>{{ app.user.telephone }}</p>
-    <h2>Site de rattachement</h2>
-    <p>{{ app.user.site.nom }}</p>
-
-    <a href="{{ path('main_modifProfil') }}">Modifier mon profil</a>
-
-    <h1 class="bienvenue pro mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{ app.user.pseudo }}
-        :</h1>
-
     <div class="profilParticipant  flex flex-col items-center ">
-
+        <img class="w-80 h-80 rounded-full" src="{{ asset('images/participants/'~app.user.imageName) }}" alt="Photo de profil">
+        <h1 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{ app.user.pseudo }} :</h1>
         <p class="text-xl"><span class="font-bold">Nom : </span>{{ app.user.nom }}</p>
         <p class="text-xl"><span class="font-bold">prénom : </span>{{ app.user.prenom }}</p>
-        <p class="text-xl"><span class="font-bold">téléphone : </span>{{ app.user.telephone }}</p>
-        <p class="text-xl"><span class="font-bold">Email : </span>{{ app.user.mail }}</p>
         <p class="text-xl"><span class="font-bold">Site : </span>{{ app.user.site.nom }}</p>
 
         <a class="boutonProfil bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" href="{{ path('main_modifProfil') }}">Modifier mon profil</a>
@@ -39,10 +18,11 @@
 
 
     <h2  class=" participe text-4xl font-extrabold dark:text-white">Participe à :</h2>
-
+<div class="conteneur grid grid-cols-4 gap-4">
     {% for sortie in app.user.sorties %}
         {% include 'sortie/templateListe.html.twig' %}
     {% endfor %}
+</div>
 
 
 {% endblock %}
