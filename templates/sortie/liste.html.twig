@@ -4,7 +4,11 @@
 
 {% block body %}
 
-    <form class="rechercheFiltree">
+        {{ form(filtreForm) }}
+
+
+
+   {# <form class="rechercheFiltree" method="post">
         <div class="rechercheFiltre">
             {{ form_widget(filtreForm.nom) }}
         </div>
@@ -31,7 +35,7 @@
             {{ form_widget(filtreForm.organisateur) }}
         </div>
 
-        {#
+        #}{#
         <div class="inscrit">
             <p>Sorties auxquelles je suis inscrit :</p>
             {{ form_widget(filtreForm.inscrit) }}
@@ -41,7 +45,7 @@
             <p>Sorties auxquelles je suis inscrit :</p>
             {{ form_widget(filtreForm.inscrit) }}
         </div>
-        #}
+        #}{#
 
         <div class="datePassee">
             <p>Sorties passées :</p>
@@ -51,7 +55,7 @@
         <div class="submit">
             {{ form_widget(filtreForm.submit) }}
         </div>
-    </form>
+    </form>#}
 
     <a href="{{ path('sortie_creation') }}">Créer une sortie</a>
 

@@ -67,13 +67,8 @@ class FiltreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Filtre::class,
-            'method' => 'GET',
-            'csrf_protection' => false
         ]);
     }
 
-    public function getBlockPrefix()
-    {
-        return '';
-    }
+
 }

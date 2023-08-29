@@ -41,19 +41,27 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('nom', "%{$filtre->getNom()}%");
         }
         if (!empty($filtre->getSite())) {
+
             $query = $query
                 ->andWhere('s.site IN (:site)')
                 ->setParameter('site', $filtre->getSite());
         }
+
+       /* if ((!empty($filtre->getDateHeureDebut()))||(!empty($filtre->getDateHeureFin()))){
+            $query=$query
+                ->andWhere('s.dateHeureDebut BETWEEN :date1 AND :date2')
+                ->setParameter('date1', $filtre->getDateHeureDebut())
+                ->setParameter('date2',$filtre->getDateHeureFin());
+        }*/
         if (!empty($filtre->getDateHeureDebut())) {
             $query = $query
-                ->andWhere('s.dateHeureDebut >= :date')
-                ->setParameter('date', $filtre->getDateHeureDebut());
+                ->andWhere('s.dateHeureDebut >= :datedebut')
+                ->setParameter('datedebut', $filtre->getDateHeureDebut());
         }
         if (!empty($filtre->getDateHeureFin())) {
             $query = $query
-                ->andWhere('s.dateHeureDebut <= :date')
-                ->setParameter('date', $filtre->getDateHeureFin());
+                ->andWhere('s.dateHeureDebut <= :datefin')
+                ->setParameter('datefin', $filtre->getDateHeureFin());
         }
 
         if ($filtre->isOrganisateur()) {
