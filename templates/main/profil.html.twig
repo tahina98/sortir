@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    <h2>Nom</h2>
+    <img src="{{ asset('images/participants/'~app.user.imageName) }}" alt="Photo de profil">
+    <p>{{ app.user.nom }}</p>
+    <h2>Prénom</h2>
+    <p>{{ app.user.prenom }}</p>
+    <h2>Pseudo</h2>
+    <p>{{ app.user.pseudo }}</p>
+    <h2>Mail</h2>
+    <p>{{ app.user.mail }}</p>
+    <h2>Téléphone</h2>
+    <p>{{ app.user.telephone }}</p>
+    <h2>Site de rattachement</h2>
+    <p>{{ app.user.site.nom }}</p>
+
+    <a href="{{ path('main_modifProfil') }}">Modifier mon profil</a>
+
     <h1 class="bienvenue pro mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{ app.user.pseudo }}
         :</h1>
 
