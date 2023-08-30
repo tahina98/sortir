@@ -76,6 +76,10 @@
                    style="color:darkred">
                     Supprimer
                 </a>
+                <a href="{{ path('sortie_modification', {'id': sortie.id}) }}"
+                   style="color:#3a8b00">
+                    Modifier
+                </a>
             {% endif %}
             {% if sortie.participants.count != 0 %}
                 <div class="font-bold text-sm mt-2">Participants :</div>

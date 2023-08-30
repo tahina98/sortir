@@ -9,7 +9,7 @@
 
 
 
-    <div class="conteneur grid grid-cols-4 gap-4">
+    <div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom == 'EN_CREATION'
                 and  sortie.organisateur.pseudo == app.user.userIdentifier %}
@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="conteneur grid grid-cols-4 gap-4">
+    <div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom == 'OUVERT'
                 or sortie.etat.statutNom == 'CLOTURE'
