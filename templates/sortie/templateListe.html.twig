@@ -31,7 +31,7 @@
                     {% if sortie.etat.statutNom == 'OUVERT'
                         and sortie.organisateur.pseudo == app.user.userIdentifier
                         and sortie.dateLimiteInscription > "now" %}
-                        <a  href=""
+                        <a
                            data-id="{{ sortie.id }}"
                            class="annulation"
                            style="color:darkred">
