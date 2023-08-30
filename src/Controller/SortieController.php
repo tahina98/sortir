@@ -51,6 +51,8 @@ class SortieController extends AbstractController
     }
 
     #[Route('/listeapublier', name: '_liste_a_publier')]
+    #[IsGranted('ROLE_USER')]
+
     public function liste_a_publier(SortieRepository $sortieRepository): Response
     {
         $sorties = $sortieRepository->findEnCoursCreation();
@@ -58,6 +60,8 @@ class SortieController extends AbstractController
     }
 
     #[Route('/publication/{sortie}', name: '_publier')]
+    #[IsGranted('ROLE_USER')]
+
     public function publier(
         EntityManagerInterface $entityManager,
         SortieRepository       $sortieRepository,
@@ -66,15 +70,21 @@ class SortieController extends AbstractController
         Sortie                 $sortie
     ): Response
     {
+        if ($this->getUser() === $sortie->getOrganisateur()){
+
+
         $sortie = $sortieRepository->find($sortie->getId());
         $etat = $etatRepository->findOneBy(['statutNom' => 'OUVERT']);
         $sortie->setEtat($etat);
         $entityManager->persist($sortie);
         $entityManager->flush();
+
+        }
         return $this->redirectToRoute('sortie_liste');
     }
 
     #[Route('/annulation/{sortie}/{motif}', name: '_annuler')]
+    #[IsGranted('ROLE_USER')]
     public function annuler(
         EntityManagerInterface $entityManager,
         EtatRepository         $etatRepository,
@@ -94,6 +104,8 @@ class SortieController extends AbstractController
     }
 
     #[Route('/suppression/{sortie}', name: '_supprimer')]
+    #[IsGranted('ROLE_USER')]
+
     public function supprimer(
         EntityManagerInterface $entityManager,
         EtatRepository         $etatRepository,
@@ -152,7 +164,16 @@ class SortieController extends AbstractController
 
     public function detail(Sortie $sortie): Response
     {
-        return $this->render('sortie/detail.html.twig', compact('sortie'));
+
+        $etatSortie = $sortie->getEtat()->getStatutNom();
+
+        if ($etatSortie === 'OUVERT' or $etatSortie === 'CLOTURE' or $etatSortie === 'EN_COURS' or $etatSortie === 'PASSE'){
+            return $this->render('sortie/detail.html.twig', compact('sortie'));
+        } elseif (($etatSortie === 'EN_CREATION' or $etatSortie ==='ANNULE' or $etatSortie ==='ARCHIVE') and $this->getUser() === $sortie->getOrganisateur()){
+            return $this->render('sortie/detail.html.twig', compact('sortie'));
+
+        }
+        return $this->redirectToRoute('sortie_liste');
     }
 
 
@@ -168,8 +189,12 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = $sortieRepository->find($id);
+        $etatSortie = $sortie->getEtat()->getStatutNom();
 
-        if ($this->getUser() === $sortie->getOrganisateur()){
+        if ($this->getUser() === $sortie->getOrganisateur()
+            and ($etatSortie === 'EN_CREATION'
+            or $etatSortie === 'OUVERT'))
+        {
 
         $sortieForm = $this->createForm(SuppressionType::class, $sortie);
         $sortieForm->handleRequest($requete);
