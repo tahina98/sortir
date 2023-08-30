@@ -169,7 +169,7 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
 
-
+        if ($this->getUser() === $sortie->getOrganisateur()){
 
         $sortieForm = $this->createForm(SuppressionType::class, $sortie);
         $sortieForm->handleRequest($requete);
@@ -208,9 +208,14 @@ class SortieController extends AbstractController
 
 
         return $this->render('sortie/modification.html.twig', compact('sortieForm', 'sortie'));
+        }
+
+        return $this->redirectToRoute('sortie_liste');
+
     }
 
     #[Route('/inscription/{sortie}', name: '_inscription')]
+    #[IsGranted('ROLE_USER')]
     public function inscription(
         Sortie                 $sortie,
         EtatRepository         $etatRepository,
@@ -233,6 +238,8 @@ class SortieController extends AbstractController
 
 
     #[Route('/desistement/{sortie}', name: '_desistement')]
+    #[IsGranted('ROLE_USER')]
+
     public function desistement(
         Sortie                 $sortie,
         EntityManagerInterface $entityManager,
