@@ -73,23 +73,31 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
+        $dateParDefautSortie = new \DateTime('now + 2 days');
+        $sortie->setDateHeureDebut($dateParDefautSortie);
+        $sortie->setDateLimiteInscription(new \DateTime('now'));
         $etat = $etatRepository->findOneBy(['statutNom' => 'EN_CREATION']);
         $sortie->setEtat($etat);
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($requete);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+            $clicked = $requete->request->get('clicked');
+
+            if ($clicked === 'creer') {
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                return $this->redirectToRoute('sortie_liste');
+            }
             return $this->redirectToRoute('sortie_liste');
         }
-
         return $this->render('sortie/creation.html.twig',
             [
                 "sortieForm" => $sortieForm->createView()
             ]
         );
     }
+
 
     #[Route('/detail/{sortie}', name: '_detail')]
     public function detail(Sortie $sortie): Response
@@ -111,7 +119,7 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SuppressionType::class, $sortie);
         $sortieForm->handleRequest($requete);
 
-        if ($sortieForm->isSubmitted()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             $clicked = $requete->request->get('clicked');
             if ($clicked === 'supprimer') {
@@ -137,7 +145,7 @@ class SortieController extends AbstractController
                 $entityManager->persist($sortie);
                 $entityManager->flush();
             }
-            if ($clicked === 'retour') {
+            if ($clicked === 'retour' && !($sortieForm->isValid())) {
                 return $this->redirectToRoute('sortie_liste');
             }
             return $this->redirectToRoute('sortie_liste');

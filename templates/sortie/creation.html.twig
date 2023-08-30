@@ -6,52 +6,82 @@
             {{ form_start(sortieForm) }}
             <form>
                 <div class="mb-4">
-                    {{ form_errors(sortieForm.nom) }}
-                    {{ form_label(sortieForm.nom) }}
+                    {{ form_label(sortieForm.lieu, null,{
+                        'label': 'Lieu de la sortie',
+                        'label_attr': {'class': 'lieu'}
+                    }) }}
+                    {{ form_widget(sortieForm.lieu) }}
+                </div>
+                <div class="mb-4">
+                    Si le lieu n'existe pas, vous pouvez le créer <a href="{{ path('lieu_nouveau') }}">ici</a>
+                </div>
+                <div class="mb-4">
+                    {{ form_errors(sortieForm.nom,) }}
+                    {{ form_label(sortieForm.nom, null,{
+                        'label': 'Nom de la sortie',
+                        'label_attr': {'class': 'nom'}
+                    }) }}
                     {{ form_widget(sortieForm.nom) }}
 
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.dateHeureDebut) }}
+                    {{ form_label(sortieForm.dateHeureDebut, null,{
+                        'label': 'Date et Heure de la sortie',
+                        'label_attr': {'class': 'dateHeureDebut'}
+                    }) }}
                     {{ form_widget(sortieForm.dateHeureDebut) }}
                     {{ form_errors(sortieForm.dateHeureDebut) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.duree) }}
+                    {{ form_label(sortieForm.duree, null,{
+                        'label': 'Durée en minutes',
+                        'label_attr': {'class': 'duree'}
+                    } ) }}
                     {{ form_widget(sortieForm.duree) }}
                     {{ form_errors(sortieForm.duree) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.dateLimiteInscription) }}
+                    {{ form_label(sortieForm.dateLimiteInscription, null,{
+                        'label': 'Date limite d\'inscription',
+                        'label_attr': {'class': 'dateLimiteInscription'}
+                    } ) }}
                     {{ form_widget(sortieForm.dateLimiteInscription) }}
                     {{ form_errors(sortieForm.dateLimiteInscription) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.nbInscriptionsMax) }}
+                    {{ form_label(sortieForm.nbInscriptionsMax, null,{
+                        'label': 'Nombre de participants maximum',
+                        'label_attr': {'class': 'nbInscriptionsMax'}
+                    }) }}
                     {{ form_widget(sortieForm.nbInscriptionsMax) }}
                     {{ form_errors(sortieForm.nbInscriptionsMax) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.infosSortie) }}
+                    {{ form_label(sortieForm.infosSortie, null,{
+                        'label': 'Détails de la sortie',
+                        'label_attr': {'class': 'infosSortie'}
+                    }) }}
                     {{ form_widget(sortieForm.infosSortie) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_label(sortieForm.site) }}
+                    {{ form_label(sortieForm.site, null,{
+                        'label': 'Site de rattachement',
+                        'label_attr': {'class': 'site'}
+                    }) }}
                     {{ form_widget(sortieForm.site) }}
-                </div>
-                <div class="mb-4">
-                    {{ form_label(sortieForm.lieu) }}
-                    {{ form_widget(sortieForm.lieu) }}
                 </div>
                 <div class="mb-4">
                     Organisateur : {{ app.user.pseudo }}
                 </div>
+                <button name="clicked" value="creer" type="submit">Créer</button>
                 {{ form_end(sortieForm) }}
 
         </div>
         </form>
-
-
+        <div class="boutonRetour">
+            <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               href="{{ path('sortie_liste') }}">Retour</a>
+        </div>
     </div>
     </div>
 
