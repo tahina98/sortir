@@ -81,6 +81,9 @@ class Sortie
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+  
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $motifAnnulation = null;
 
     public function __construct()
     {
@@ -288,6 +291,15 @@ class Sortie
     {
         $this->updatedAt = $updatedAt;
 
+      
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motifAnnulation;
+    }
+
+    public function setMotifAnnulation(?string $motifAnnulation): static
+    {
+        $this->motifAnnulation = $motifAnnulation;
         return $this;
     }
 }
