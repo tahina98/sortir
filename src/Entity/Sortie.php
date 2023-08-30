@@ -38,6 +38,7 @@ class Sortie
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message: 'Le champ nom ne doit pas être vide')]
+    #[Assert\LessThanOrEqual(propertyPath:"dateHeureDebut", message: 'La date limite d\'inscription doit être inférieure à la date de début')]
     #[Assert\GreaterThanOrEqual('today', message: 'La date de la sortie doit être dans le futur')]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
@@ -290,8 +291,10 @@ class Sortie
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+        return $this;
 
-      
+    }
+
     public function getMotifAnnulation(): ?string
     {
         return $this->motifAnnulation;
