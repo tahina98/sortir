@@ -6,11 +6,6 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('build/logo.png') }}">
 
             {{ encore_entry_link_tags('app') }}
-
-
-
-
-
             {{ encore_entry_script_tags('app') }}
 
     </head>
@@ -99,4 +94,6 @@
 
 <script src="https://kit.fontawesome.com/a7dbd1cbd9.js" crossorigin="anonymous"></script>
     </body>
+    {% block javascripts %}
+    {% endblock %}
 </html>
