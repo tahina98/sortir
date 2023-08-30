@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="conteneur grid grid-cols-4 gap-4">
+    <div class="conteneur grid grid-cols-4 gap-4" id="sorties">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom == 'OUVERT'
                 or sortie.etat.statutNom == 'CLOTURE'
@@ -33,4 +33,9 @@
     <div class="flex justify-center m-10">
     <a href="{{ path('sortie_creation') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Créer une sortie</a>
     </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('app.js') }}"> </script>
+    {% endblock %}
+
 {% endblock %}
