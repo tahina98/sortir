@@ -26,6 +26,24 @@
                 <a href="{{ path('sortie_inscription', {'sortie': sortie.id}) }}"> S'inscrire </a>
             {% endif %}
 
+            <ul>
+                {% for participant in sortie.participants | sort %}
+                    {% if participant is same as (app.user) %}
+                        <li>
+                            <img src="{{ asset('images/participants/'~app.user.imageName) }}" alt="Photo de profil">
+                            <p>Vous</p>
+                        </li>
+                    {% endif %}
+                    {% if participant is not same as(app.user) %}
+                        <li>
+                            <img src="{{ asset('images/participants/'~participant.imageName) }}" alt="Photo de profil">
+                            <a href="{{ path('profilParticipant', {'participant': participant.id}) }}">
+                                <p>{{ participant.pseudo }}</p>
+                            </a>
+                        </li>
+                    {% endif %}
+
+
             {% if sortie.etat.statutNom == 'OUVERT'
                 and sortie.dateLimiteInscription > "now"
                 and app.user in sortie.participants %}
