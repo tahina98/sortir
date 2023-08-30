@@ -112,7 +112,7 @@ class SortieController extends AbstractController
 
 
     #[Route('/creation', name: '_creation')]
-    #[IsGranted('ROLE_USER', 'ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     public function creation(
         EntityManagerInterface $entityManager,
         Request                $requete,
@@ -148,7 +148,7 @@ class SortieController extends AbstractController
 
 
     #[Route('/detail/{sortie}', name: '_detail')]
-    #[IsGranted('ROLE_USER', 'ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
 
     public function detail(Sortie $sortie): Response
     {
