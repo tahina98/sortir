@@ -21,26 +21,48 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class SortieController extends AbstractController
 {
     #[Route('/', name: '_liste')]
-    //TODO Intégrer les rôles
-        //TODO  l'affichage par site / isncrit ou non / organisateur ou non /sorties passées
-        // TODO filtrer par date / nom de la sortie contient
-    public function liste(SortieRepository $sortieRepository, Request $requete, ParticipantRepository $participantRepository): Response
+    public function liste(
+        SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
+        Request $requete,
+        ParticipantRepository $participantRepository): Response
     {
         //essaie n2
         if ($this->getUser()) {
+
             $filtre = new Filtre();
             $filtreForm = $this->createForm(FiltreType::class, $filtre);
             $filtreForm->handleRequest($requete);
 
             $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
+
+            //compte le nombre de sorties au statut en création pour afficher la notif
+            $sortiesUtilisateur = $utilisateur->getSortiesOrganisees();
+
+            $nbAPublier = 0;
+            foreach ($sortiesUtilisateur as $sortie){
+                if ($sortie->getEtat() === $etatRepository->find(1)){
+                    $nbAPublier = $nbAPublier+1;
+                };
+            }
+
+            //compte le nombre de sorties annulées
+            $sortiesUtilisateur = $utilisateur->getSorties();
+            $nbAnnulees = 0;
+            foreach ($sortiesUtilisateur as $sortie){
+                if ($sortie->getEtat() === $etatRepository->find(6)){
+                    $nbAnnulees = $nbAnnulees+1;
+                };
+            }
+
             if ($filtreForm->isSubmitted()) {
                 $sorties = $sortieRepository->findFiltre($filtre, $utilisateur);
-                return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
+                return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm','nbAPublier', 'nbAnnulees'));
 
 
             }
             $sorties = $sortieRepository->findAll();
-            return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm'));
+            return $this->render('sortie/liste.html.twig', compact('sorties', 'filtreForm','nbAPublier', 'nbAnnulees'));
 
 
         } else {

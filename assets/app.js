@@ -8,19 +8,23 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-
 const sorties = document.getElementById('sorties');
+window.onload = init();
 
-if (sorties){
-    sorties.addEventListener('click', e=> {
-        if(e.target.className === 'annulation'){
-            let id = e.target.getAttribute('data-id');
-            let motif = prompt('Merci de saisir un motif d\'annulation');
-            console.log(id);
-            console.log(motif);
-            fetch('http://127.0.0.1:8000/sorties/annulation/' + id + '/' + motif).then((r) =>
-                window.location.replace('http://127.0.0.1:8000/sorties/'));
-        }
-    })
+function init() {
+    if (sorties) {
+        console.log('coucou')
+        sorties.addEventListener('click', e => {
+            if (e.target.className === 'annulation') {
+                let id = e.target.getAttribute('data-id');
+                let motif = prompt('Merci de saisir un motif d\'annulation');
+
+                console.log(id);
+                console.log(motif);
+                fetch('http://127.0.0.1:8000/sorties/annulation/' + id + '/' + motif).then((r) =>
+                    window.location.replace('http://127.0.0.1:8000/sorties/'));
+            }
+        })
+    }
+
 }
-
