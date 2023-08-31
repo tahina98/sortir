@@ -2,13 +2,22 @@
 
 {% block body %}
 
+    <h1 class="bienvenue mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Ajouter un lieu</h1>
+    <p class="slogan mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+        Pour t'aider à compléter les infos, rends toi <a href="https://www.google.com/maps" target="_blank">ici</a>. Et
+        récupère la localisation. </p>
     {{ form_start(lieuForm) }}
     {{ form_row(lieuForm.nom) }}
-    <div id="rue">{{ form_row(lieuForm.rue) }}</div>
-    <div id="ville">{{ form_row(lieuForm.ville) }}</div>
+    {{ form_row(lieuForm.rue) }}
+    {{ form_row(lieuForm.ville) }}
+    {{ form_row(lieuForm.lienLocalisation) }}
+    {{ form_row(lieuForm.latitude) }}
+    {{ form_row(lieuForm.longitude) }}
     {{ form_end(lieuForm) }}
 
-    {#<script>
+
+    {# <script>
         let rue = '';
         let ville = '';
         let baseUrl = "https://api-adresse.data.gouv.fr/search/?q=";
