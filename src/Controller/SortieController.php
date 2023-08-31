@@ -76,16 +76,24 @@ class SortieController extends AbstractController
 
     #[Route('/listeapublier', name: '_liste_a_publier')]
     #[IsGranted('ROLE_USER')]
-
     public function liste_a_publier(SortieRepository $sortieRepository): Response
     {
         $sorties = $sortieRepository->findEnCoursCreation();
         return $this->render('sortie/listeEnCoursCreation.html.twig', compact('sorties'));
     }
 
+    #[Route('/listeannule', name: '_liste_annule')]
+    #[IsGranted('ROLE_USER')]
+    public function liste_annule(SortieRepository $sortieRepository, ParticipantRepository $participantRepository): Response
+    {
+        $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
+        $sorties = $sortieRepository->findAnnule($utilisateur);
+        return $this->render('sortie/listeAnnule.html.twig', compact('sorties'));
+    }
+
+
     #[Route('/publication/{sortie}', name: '_publier')]
     #[IsGranted('ROLE_USER')]
-
     public function publier(
         EntityManagerInterface $entityManager,
         SortieRepository       $sortieRepository,
