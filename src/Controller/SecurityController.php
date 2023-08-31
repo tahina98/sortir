@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,18 +25,27 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(ParticipantRepository $participantRepository): void
+
+    #[Route(path: '/prelogout', name: 'app_prelogout')]
+    public function prelogout(
+        ParticipantRepository  $participantRepository,
+        EntityManagerInterface $entityManager
+    ): Response
     {
-
-        $lastConnexion = new \DateTime();
         $utilisateur = $participantRepository->findOneBy(["pseudo" => $this->getUser()->getUserIdentifier()]);
-        $utilisateur->setDerniereConnexion($lastConnexion);
+        $utilisateur->setDerniereConnexion(new \DateTime('now'));
+        $entityManager->persist($utilisateur);
+        $entityManager->flush();
 
+        return $this->redirectToRoute('app_logout');
+    }
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): void
+    {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
