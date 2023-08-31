@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
+    <div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {% for sortie in sorties %}
             {% include 'sortie/templateListe.html.twig' %}
         {% endfor %}
