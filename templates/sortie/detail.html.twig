@@ -6,7 +6,7 @@
     <div class="flex justify-center">
     <div class="max-w-sm rounded overflow-hidden shadow-lg">
         {# <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> #}
-        <div class="px-6 py-4">
+        <div id="sorties" class="px-6 py-4">
 
                 <div class="texteBleu font-bold text-xl mb-2">{{ sortie.nom }}</div>
                 <div class="texteRose font-bold text-base mb-2">{{ sortie.dateHeureDebut|format_datetime(locale='fr') }}</div>
@@ -60,8 +60,10 @@
             {% if sortie.etat.statutNom == 'OUVERT'
                 and sortie.organisateur.pseudo == app.user.userIdentifier
                 and sortie.dateLimiteInscription > "now" %}
-                <a href="{{ path('sortie_annuler', {'sortie': sortie.id}) }}"
-                   style="color:darkred">
+                <a
+                        data-id="{{ sortie.id }}"
+                        class="annulation"
+                        style="color:darkred">
                     Annuler
                 </a>
             {% endif %}
