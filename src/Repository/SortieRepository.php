@@ -47,12 +47,6 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('site', $filtre->getSite());
         }
 
-       /* if ((!empty($filtre->getDateHeureDebut()))||(!empty($filtre->getDateHeureFin()))){
-            $query=$query
-                ->andWhere('s.dateHeureDebut BETWEEN :date1 AND :date2')
-                ->setParameter('date1', $filtre->getDateHeureDebut())
-                ->setParameter('date2',$filtre->getDateHeureFin());
-        }*/
         if (!empty($filtre->getDateHeureDebut())) {
             $query = $query
                 ->andWhere('s.dateHeureDebut >= :datedebut')
@@ -79,7 +73,7 @@ class SortieRepository extends ServiceEntityRepository
          }
         if ($filtre->isDatePassee()) {
             $query = $query
-                ->andWhere('s.etat = 2');
+                ->andWhere('s.etat = 5');
         }
 
         return new Paginator($query);
