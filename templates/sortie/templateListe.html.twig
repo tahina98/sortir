@@ -2,10 +2,12 @@
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
     {# <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> #}
     <div class="px-6 py-4 flex flex-col items-center lg:items-start">
-        <a class="flex flex-col items-center" href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
+        <a class="flex flex-col lg:self-center" href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
             {% if sortie.imageName %}
+
                 <img class="max-h-56 mb-4 rounded-lg" src="{{ asset('images/sorties/'~sortie.imageName) }}"
                      alt="photo sortie"/>
+
             {% else %}
                 <img class="max-h-56 mb-4 rounded-lg" src="{{ asset('images/sorties/SortieParDefaut.jpg') }}"
                      alt="photo sortie"/>

@@ -22,7 +22,7 @@ class Sortie
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le champ nom ne doit pas être vide')]
-    #[Assert\Regex('/^[a-zA-Z0-9\s]{3,35}$/', message: 'le nom ne peut contenir plus de 35 caractères(lettre ou chiffres')]
+    #[Assert\Regex('/^[a-zA-Zà-üÀ-Ü0-9\s]{3,35}$/', message: 'le nom ne peut contenir plus de 35 caractères(lettre ou chiffres')]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -82,9 +82,12 @@ class Sortie
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
-  
+
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $motifAnnulation = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateAnnulation = null;
 
     public function __construct()
     {
@@ -303,6 +306,18 @@ class Sortie
     public function setMotifAnnulation(?string $motifAnnulation): static
     {
         $this->motifAnnulation = $motifAnnulation;
+        return $this;
+    }
+
+    public function getDateAnnulation(): ?\DateTimeInterface
+    {
+        return $this->dateAnnulation;
+    }
+
+    public function setDateAnnulation(?\DateTimeInterface $dateAnnulation): static
+    {
+        $this->dateAnnulation = $dateAnnulation;
+
         return $this;
     }
 }

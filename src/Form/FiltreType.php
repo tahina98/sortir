@@ -59,7 +59,11 @@ class FiltreType extends AbstractType
                 'mapped' => true,
                 'required' => false
             ])
-            ->add('submit',SubmitType::class)
+            ->add('Rechercher', SubmitType::class,[
+                'attr'=>[
+                    'type'=>'button'
+                ]
+            ])
         ;
     }
 
