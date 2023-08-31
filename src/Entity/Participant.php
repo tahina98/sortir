@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[Vich\Uploadable]
-#[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
+#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà pris l\'ami !')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -39,7 +39,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-//    #[Assert\NotBlank(message:'Le champ prenom ne doit pas être vide')]
     #[Assert\Regex('/^[^0-9]*$/', message: 'votre prénom ne peut contenir que des lettres')]
     private ?string $prenom = null;
 

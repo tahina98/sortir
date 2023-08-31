@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormTypeInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SortieType extends AbstractType
 {
@@ -41,6 +42,9 @@ class SortieType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
             ]);
     }
 
