@@ -16,13 +16,19 @@
 
 
 
+    {% if app.user.sorties is not empty %}
+        <h2  class=" participe text-4xl font-extrabold dark:text-white">Participe à :</h2>
+        <div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4">
+            {% for sortie in app.user.sorties %}
+                {% include 'sortie/templateListe.html.twig' %}
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="flex justify-center">
+            <a class="text-xl texteRose" href="{{ path('sortie_liste') }}">Inscrivez-vous à des sorties !</a>
+            </div>
+    {% endif %}
 
-    <h2  class=" participe text-4xl font-extrabold dark:text-white">Participe à :</h2>
-<div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4">
-    {% for sortie in app.user.sorties %}
-        {% include 'sortie/templateListe.html.twig' %}
-    {% endfor %}
-</div>
 
 
 {% endblock %}
