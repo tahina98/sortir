@@ -34,6 +34,9 @@ class Lieu
     #[ORM\JoinColumn(nullable: false)]
     private ?Ville $ville = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lienLocalisation = null;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -130,6 +133,18 @@ class Lieu
     public function setVille(?Ville $ville): static
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getLienLocalisation(): ?string
+    {
+        return $this->lienLocalisation;
+    }
+
+    public function setLienLocalisation(?string $lienLocalisation): static
+    {
+        $this->lienLocalisation = $lienLocalisation;
 
         return $this;
     }
