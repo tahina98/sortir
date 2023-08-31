@@ -3,9 +3,33 @@
 {% block title %}Hello SortieController!{% endblock %}
 
 {% block body %}
+    <h1 class="bienvenue texteRose mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">La liste</h1>
+<div>
+    {{ form_start(filtreForm) }}
 
-        {{ form(filtreForm) }}
+         {{ form_widget(filtreForm.nom) }}
+        {{ form_widget(filtreForm.site) }}
 
+        <p class="font-bold mt-2 mb-2 self-start lg:self-center">à partir du :</p>
+        {{ form_widget(filtreForm.dateHeureDebut) }}
+        <p class="font-bold mt-2 mb-2 self-start lg:self-center">Au :</p>
+        {{ form_widget(filtreForm.dateHeureFin) }}
+        <div class=" w-full flex flex-row justify-between items-center lg:w-1/4">
+            <div class="flex flex-row justify-between items-center">
+        {{ form_label(filtreForm.organisateur) }}
+        {{ form_widget(filtreForm.organisateur) }}
+            </div>
+            <div class="flex flex-row justify-between items-center">
+            {{ form_label(filtreForm.datePassee) }}
+            {{ form_widget(filtreForm.datePassee) }}
+        </div>
+
+        </div>
+
+
+
+    {{ form_end(filtreForm) }}
+</div>
 
 
     <div class="flex justify-center m-10">
@@ -36,7 +60,7 @@
     </div>
 
     {% block javascripts %}
-        <script src="{{ asset('app.js') }}"> </script>
+        <script src="{{ asset('app.js') }}"></script>
     {% endblock %}
 
 {% endblock %}
