@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="toutSortie grid grid-cols-4 gap-4 items-center ">
+        {% for sortie in sorties %}
+            {% include 'sortie/templateListe.html.twig' %}
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block title %}
+    Sortie(s) Annulée(s)
+{% endblock %}
+

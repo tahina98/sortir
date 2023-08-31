@@ -97,6 +97,18 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    //Trouve les sorties annulées auxquelles un partipant est inscrit
+    public function findAnnule(Participant $participant)
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->andWhere('s.etat = 6')
+            ->andWhere(':participants MEMBER OF s.participants')
+            ->setParameter('participants', $participant)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * @throws \Exception
      */
