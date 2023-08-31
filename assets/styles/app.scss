@@ -299,3 +299,42 @@ footer {
   margin-bottom: 80px;
 }
 
+#filtre_site{
+  @apply w-full flex flex-row justify-between mt-3 lg:w-1/4
+}
+
+#filtre_site_1{
+  @apply mt-2
+}
+
+#filtre_site_2{
+  @apply mt-2
+}
+
+#filtre_site_placeholder{
+  @apply mt-2
+}
+
+#filtre_organisateur{
+  @apply ml-6
+}
+
+#filtre_datePassee{
+  @apply ml-6
+}
+
+#filtre_submit{
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+}
+
+#filtre_nom{
+  @apply lg:w-1/4
+}
+
+#filtre_dateHeureDebut{
+  @apply lg:w-1/4
+}
+
+#filtre_dateHeureFin{
+  @apply lg:w-1/4
+}
