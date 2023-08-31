@@ -74,6 +74,10 @@ label {
   @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
 }
 
+#creer_sortie {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
+}
+
 .modification {
   @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6;
 }
@@ -107,9 +111,13 @@ a {
   font-weight: bold;
 }
 
+.bgBlue {
+  background-color: #5CAFE7;
+}
+
 .presentation {
   background-color: #5CAFE7;
-  margin-left: 620px;
+  /*margin-left: 620px;*/
   margin-right: 10px;
   border-radius: 10px;
   padding: 20px;
@@ -243,14 +251,7 @@ footer {
 }
 
 .descriptionMobile {
-  align-self: center;
   background-color: #5CAFE7;
-  border-radius: 10px;
-  color: white;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  margin-left: 300px;
 }
 
 .descriptionMobile p {

@@ -1,6 +1,7 @@
+
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
     {# <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> #}
-    <div class="px-6 py-4">
+    <div class="px-6 py-4 flex flex-col items-center lg:items-start">
         <a class="flex flex-col items-center" href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
             {% if sortie.imageName %}
                 <img class="max-h-56 mb-4 rounded-lg" src="{{ asset('images/sorties/'~sortie.imageName) }}"
@@ -11,9 +12,9 @@
             {% endif %}
         </a>
         <a href="{{ path('sortie_detail', {'sortie': sortie.id}) }}">
-            <div class="texteBleu font-bold text-xl mb-2">{{ sortie.nom }}</div>
+            <div class="texteBleu font-bold text-xl mb-2 text-center lg:text-start">{{ sortie.nom }}</div>
             <div class="texteRose font-bold text-base mb-2">{{ sortie.dateHeureDebut|format_datetime(locale='fr') }}</div>
-            <div class="font-bold text-sm mb-2">Inscriptions : {{ sortie.participants.count }}
+            <div class="font-bold text-sm mb-2 text-center lg:text-start">Inscriptions : {{ sortie.participants.count }}
                 / {{ sortie.nbInscriptionsMax }}</div>
         </a>
         <div class="font-bold text-sm mb-2">{{ sortie.etat.libelle }}</div>
@@ -22,6 +23,7 @@
                     class="texteBleu">{{ sortie.organisateur.pseudo }}
             </a></div>
         {% if sortie.etat.statutNom == 'OUVERT'
+
                         and sortie.dateLimiteInscription > "now"
                         and sortie.nbInscriptionsMax > sortie.participants.count
                         and app.user not in sortie.participants %}
@@ -71,7 +73,7 @@
                         </a>
                     {% endfor %}
                 </div>
-                <div class="px-6 pt-4 pb-2">
+                <div class="px-6 pt-4 pb-2 flex justify-center lg:justify-start">
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
                 </div>
             </div>
