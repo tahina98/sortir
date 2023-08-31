@@ -2,11 +2,15 @@
 
 {% block body %}
 
+    <h1>Ajouter un lieu</h1>
+    <p>Pour t'aider à compléter les infos, rends toi <a href="https://www.google.com/maps" target="_blank">ici</a>. Et
+        récupère la localisation. </p>
     {{ form_start(lieuForm) }}
     {{ form_row(lieuForm.nom) }}
     <div id="rue">{{ form_row(lieuForm.rue) }}</div>
     <div id="ville">{{ form_row(lieuForm.ville) }}</div>
     {{ form_end(lieuForm) }}
+
 
     {#<script>
         let rue = '';
