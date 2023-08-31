@@ -47,11 +47,13 @@ class SortieController extends AbstractController
             }
 
             //compte le nombre de sorties annulées
+            //depuis la dernière connexion
             $sortiesUtilisateur = $utilisateur->getSorties();
             $nbAnnulees = 0;
+            $derniereConnexion = $utilisateur->getDerniereConnexion();
             foreach ($sortiesUtilisateur as $sortie){
-                if ($sortie->getEtat() === $etatRepository->find(6)){
-                    $nbAnnulees = $nbAnnulees+1;
+                if ($sortie->getEtat() === $etatRepository->find(6) && $derniereConnexion < $sortie->getDateAnnulation()) {
+                    $nbAnnulees = $nbAnnulees + 1;
                 };
             }
 
@@ -118,6 +120,7 @@ class SortieController extends AbstractController
             $etat = $etatRepository->findOneBy(['statutNom' => 'ANNULE']);
             $sortie->setEtat($etat);
             $sortie->setMotifAnnulation($motif);
+            $sortie->setDateAnnulation(new \DateTime());
             $entityManager->persist($sortie);
             $entityManager->flush();
         }

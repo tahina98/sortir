@@ -82,9 +82,12 @@ class Sortie
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
-  
+
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $motifAnnulation = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateAnnulation = null;
 
     public function __construct()
     {
@@ -303,6 +306,18 @@ class Sortie
     public function setMotifAnnulation(?string $motifAnnulation): static
     {
         $this->motifAnnulation = $motifAnnulation;
+        return $this;
+    }
+
+    public function getDateAnnulation(): ?\DateTimeInterface
+    {
+        return $this->dateAnnulation;
+    }
+
+    public function setDateAnnulation(?\DateTimeInterface $dateAnnulation): static
+    {
+        $this->dateAnnulation = $dateAnnulation;
+
         return $this;
     }
 }
