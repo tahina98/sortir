@@ -4,8 +4,9 @@
 
 {% block body %}
     <div class="flex justify-center">
+
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
-            <div class="px-6 py-4 flex flex-col items-center lg:items-start">
+            <div id="sortie" class="px-6 py-4 flex flex-col items-center lg:items-start">
                 {% if sortie.imageName %}
                     <img class="max-h-56 mb-4 rounded-lg" src="{{ asset('images/sorties/'~sortie.imageName) }}"
                          alt="photo sortie"/>
@@ -59,6 +60,7 @@
                         </li>
                     {% endif %}
                 {% endfor %}
+
             </ul> #}
 
 
@@ -76,10 +78,12 @@
                     {% if sortie.etat.statutNom == 'OUVERT'
                         and sortie.organisateur.pseudo == app.user.userIdentifier
                         and sortie.dateLimiteInscription > "now" %}
-                        <a href="{{ path('sortie_annuler', {'sortie': sortie.id}) }}"
-                           style="color:darkred">
-                            Annuler
-                        </a>
+                        <a
+                        data-id="{{ sortie.id }}"
+                        class="annulation"
+                        style="color:darkred">
+                    Annuler
+                </a>
                     {% endif %}
 
                     {% if sortie.etat.statutNom == 'EN_CREATION'
