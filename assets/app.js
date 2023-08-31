@@ -18,6 +18,7 @@ import './styles/app.scss';
 
 
         if (sorties) {
+            console.log("test")
             sorties.addEventListener('click', e => {
                 if (e.target.className === 'annulation') {
                     let id = e.target.getAttribute('data-id');
@@ -25,8 +26,8 @@ import './styles/app.scss';
 
                     console.log(id);
                     console.log(motif);
-                    fetch('http://127.0.0.1:8000/sorties/annulation/' + id + '/' + motif).then((r) =>
-                        window.location.replace('http://127.0.0.1:8000/sorties/'));
+                    fetch('https://127.0.0.1:8000/sorties/annulation/' + id + '/' + motif).then((r) =>
+                        window.location.replace('https://127.0.0.1:8000/sorties/'));
                 }
             })
         }
