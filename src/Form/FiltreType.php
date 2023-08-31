@@ -50,10 +50,10 @@ class FiltreType extends AbstractType
                 'required' => false
             ])
             //Fonctionnalité pas faite mais foncttionnel
-            /*->add('inscrit', CheckboxType::class, [
+            ->add('inscrit', CheckboxType::class, [
                 'mapped' => true,
                 'required' => false
-            ])*/
+            ])
 
             ->add('datePassee', CheckboxType::class, [
                 'mapped' => true,

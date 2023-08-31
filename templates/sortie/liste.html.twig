@@ -14,10 +14,14 @@
         {{ form_widget(filtreForm.dateHeureDebut) }}
         <p class="font-bold mt-2 mb-2 self-start lg:self-center">Au :</p>
         {{ form_widget(filtreForm.dateHeureFin) }}
-        <div class=" w-full flex flex-row justify-between items-center lg:w-1/4">
+        <div class=" w-full flex flex-row justify-between items-center lg:w-1/4 lg:mb-4 lg:mt-4">
             <div class="flex flex-row justify-between items-center">
         {{ form_label(filtreForm.organisateur) }}
         {{ form_widget(filtreForm.organisateur) }}
+            </div>
+            <div class="flex flex-row justify-between items-center">
+                {{ form_label(filtreForm.inscrit) }}
+                {{ form_widget(filtreForm.inscrit) }}
             </div>
             <div class="flex flex-row justify-between items-center">
             {{ form_label(filtreForm.datePassee,null,{

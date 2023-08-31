@@ -72,11 +72,11 @@ class SortieRepository extends ServiceEntityRepository
 
         }
         //fonctionnalité pas faite mais fonctionnel
-        /* if ($filtre->isInscrit()){
+         if ($filtre->isInscrit()){
              $query = $query
-                 ->andWhere('s.participants = :participants')
+                 ->andWhere(':participants MEMBER OF s.participants')
                  ->setParameter('participants', $participant);
-         }*/
+         }
         if ($filtre->isDatePassee()) {
             $query = $query
                 ->andWhere('s.etat = 2');
