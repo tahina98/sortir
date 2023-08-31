@@ -12,13 +12,13 @@
     </div>
 
 
-    <div class="conteneur grid grid-cols-4 gap-4">
+    <div class="conteneur grid grid-cols-1 lg:grid-cols-4 gap-4">
         {% for sortie in sorties %}
             {% if sortie.etat.statutNom != 'EN_CREATION'
                 and sortie.etat.statutNom != 'ARCHIVE' %}
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                     {# <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> #}
-                    <div class="px-6 py-4">
+                    <div class="px-6 py-4 flex flex-col items-center lg:items-start">
                         <div class="texteBleu font-bold text-xl mb-2">{{ sortie.nom }}</div>
                         <div class="texteRose font-bold text-base mb-2">{{ sortie.dateHeureDebut|format_datetime(locale='fr') }}</div>
                         <div class="font-bold text-sm mb-2">Inscriptions : {{ sortie.participants.count }}
@@ -30,7 +30,7 @@
                             {{ sortie.infosSortie }}
                         </p>
                     </div>
-                    <div class="px-6 pt-4 pb-2">
+                    <div class="px-6 pt-4 pb-2 flex justify-center lg:justify-start">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ sortie.nom }}</span>
                     </div>
                 </div>
